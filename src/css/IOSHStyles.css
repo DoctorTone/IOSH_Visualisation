@@ -1,0 +1,34 @@
+/* Styles for webpack tester */
+body {
+    margin: 0;
+    overflow: hidden;
+    background: #bac6c6;
+}
+#WebGL-output {
+    position: relative;
+}
+.title {
+    position: absolute;
+    width: 100%;
+    top: 1%;
+    left: 0%;
+}
+.infoPanel {
+    position: absolute;
+}
+.info {
+    position: absolute;
+    width: 5%;
+    bottom: 2%;
+    left: 2.5%;
+}
+.info img {
+    width: 100%;
+}
+#gui {
+    top: 20%;
+    right: 0%;
+}
+.guiTab {
+    color: white;
+}
