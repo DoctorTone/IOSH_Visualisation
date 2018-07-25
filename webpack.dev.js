@@ -17,7 +17,7 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(["dist"]),
         new HtmlWebpackPlugin({
-            title: "Visualisation Framework",
+            title: "IOSH Visualisation",
             template: "./IOSHVis.html"
         })
     ],
