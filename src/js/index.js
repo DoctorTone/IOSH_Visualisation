@@ -39,6 +39,12 @@ class Framework extends BaseApp {
 
         //Add ground plane
         this.addGround();
+
+        //Add user representation
+        let userGeom = new THREE.CylinderBufferGeometry(SceneConfig.UserWidth, SceneConfig.UserWidth, SceneConfig.UserHeight, SceneConfig.UserSegments, SceneConfig.UserSegments);
+        let userMat = new THREE.MeshLambertMaterial( {color: 0x0000ff} );
+        let userMesh = new THREE.Mesh(userGeom, userMat);
+        this.root.add(userMesh);
     }
 
     createGUI() {
