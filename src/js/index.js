@@ -7,6 +7,7 @@ import $ from "jquery";
 import * as THREE from "three";
 import { BaseApp } from "./baseApp";
 import { SceneConfig } from "./sceneConfig";
+import txt from "../data/playerLog.txt";
 
 let ControlKit = require("controlkit");
 
@@ -45,6 +46,9 @@ class Framework extends BaseApp {
         let userMat = new THREE.MeshLambertMaterial( {color: 0x0000ff} );
         let userMesh = new THREE.Mesh(userGeom, userMat);
         this.root.add(userMesh);
+
+        //DEBUG
+        console.log("Text file = ", txt);
     }
 
     createGUI() {
