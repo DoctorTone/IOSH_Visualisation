@@ -7,7 +7,7 @@ import $ from "jquery";
 import * as THREE from "three";
 import { BaseApp } from "./baseApp";
 import { SceneConfig } from "./sceneConfig";
-import txt from "../data/playerLog.txt";
+import UserData from "../data/playerLog.txt";
 
 let ControlKit = require("controlkit");
 
@@ -47,8 +47,29 @@ class Framework extends BaseApp {
         let userMesh = new THREE.Mesh(userGeom, userMat);
         this.root.add(userMesh);
 
-        //DEBUG
-        console.log("Text file = ", txt);
+        //Parse participant data
+        //Update start date
+        $('#userDate').html("23rd July 2018");
+        let records = UserData.split("\n");
+        for(let i=0; i<6; ++i) {
+            console.log("Record", i, "=", records[i]);
+        }
+        //Get time and position
+        let recordData;
+        let times = [], positions = [];
+        for(let i=1; i<6; ++i) {
+            recordData = records[i].split(" ");
+            if(recordData.length !== 4) {
+                console.log("Invalid record number", i);
+                continue;
+            }
+            times.push(recordData[0]);
+            positions.push(new THREE.Vector3(recordData[1], recordData[2], recordData[3]));
+        }
+
+        $('#userStart').html(times[0]);
+        console.log("Times = ", times);
+        console.log("Positions = ", positions);
     }
 
     createGUI() {

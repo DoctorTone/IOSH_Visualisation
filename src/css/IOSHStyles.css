@@ -16,13 +16,12 @@ body {
 .infoPanel {
     position: absolute;
 }
-.info {
-    position: absolute;
+#info {
     width: 5%;
     bottom: 2%;
     left: 2.5%;
 }
-.info img {
+#info img {
     width: 100%;
 }
 #gui {
@@ -31,4 +30,8 @@ body {
 }
 .guiTab {
     color: white;
+}
+#timePanel {
+    left: 1%;
+    top: 1%;
 }
