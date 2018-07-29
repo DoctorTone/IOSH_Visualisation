@@ -15,11 +15,8 @@ class Framework extends BaseApp {
     constructor() {
         super();
 
-        this.appRunning = false;
-        this.currentTeam = 0;
-        this.currentLogo = null;
-        this.animating = false;
-        this.animationEnded = true;
+        this.simRunningnning = false;
+        this.currentIndex = 0;
     }
 
     setContainer(container) {
@@ -45,19 +42,29 @@ class Framework extends BaseApp {
         let userGeom = new THREE.CylinderBufferGeometry(SceneConfig.UserWidth, SceneConfig.UserWidth, SceneConfig.UserHeight, SceneConfig.UserSegments, SceneConfig.UserSegments);
         let userMat = new THREE.MeshLambertMaterial( {color: 0x0000ff} );
         let userMesh = new THREE.Mesh(userGeom, userMat);
+        userMesh.position.y = SceneConfig.UserHeight/2;
         this.root.add(userMesh);
+        this.userMesh = userMesh;
+    }
 
+    generateData() {
         //Parse participant data
         //Update start date
         $('#userDate').html("23rd July 2018");
         let records = UserData.split("\n");
-        for(let i=0; i<6; ++i) {
+        let numRecords = records.length;
+
+        //DEBUG
+        /*
+        for(let i=0; i<12; ++i) {
             console.log("Record", i, "=", records[i]);
         }
+        */
+
         //Get time and position
         let recordData;
         let times = [], positions = [];
-        for(let i=1; i<6; ++i) {
+        for(let i=1; i<numRecords; ++i) {
             recordData = records[i].split(" ");
             if(recordData.length !== 4) {
                 console.log("Invalid record number", i);
@@ -67,9 +74,39 @@ class Framework extends BaseApp {
             positions.push(new THREE.Vector3(recordData[1], recordData[2], recordData[3]));
         }
 
-        $('#userStart').html(times[0]);
-        console.log("Times = ", times);
-        console.log("Positions = ", positions);
+        //DEBUG
+        //console.log("Times = ", times);
+
+        this.setStartTime(times[0]);
+
+        //Get relative times
+        let currentDate = new Date();
+        //DEBUG
+        //console.log("Current = ", currentDate);
+
+        let millisecondTimes = [];
+        let timeParts;
+        for(let i=0,numTimes=times.length; i<numTimes; ++i) {
+            timeParts = times[i].split(":");
+            currentDate.setHours(timeParts[0]);
+            currentDate.setMinutes(timeParts[1]);
+            currentDate.setSeconds(timeParts[2]);
+            currentDate.setMilliseconds(timeParts[3]);
+            millisecondTimes.push(currentDate.getTime() - SceneConfig.SecondsOffset);
+        }
+
+        //DEBUG
+        //console.log("Milliseconds = ", millisecondTimes);
+
+        this.userMesh.position.copy(positions[0]);
+        this.simTimes = millisecondTimes;
+        this.simPositions = positions;
+    }
+
+    setStartTime(time) {
+        //Take off seconds
+        let timeParts = time.split(":");
+        $('#userStart').html(timeParts[0] + ":" + timeParts[1]);
     }
 
     createGUI() {
@@ -124,6 +161,11 @@ class Framework extends BaseApp {
     update() {
         super.update();
         let delta = this.clock.getDelta();
+
+        if(this.simRunning) {
+            if((this.simTimes[this.currentIndex+1] - this.simTimes[this.currentIndex]) > this.elapsedTime) {
+            
+        }
     }
 }
 
@@ -136,6 +178,7 @@ $(document).ready( () => {
     app.init(container);
     //app.createGUI();
     app.createScene();
+    app.generateData();
 
     $("#guiOption").on("click", () => {
         $("#guiTab").fadeOut( () => {

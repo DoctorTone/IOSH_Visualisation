@@ -21,8 +21,9 @@ const SceneConfig = {
     GroundHeight: 1000,
     GroundSegments: 16,
     UserWidth: 5,
-    UserHeight: 10,
-    UserSegments: 16
+    UserHeight: 20,
+    UserSegments: 16,
+    SecondsOffset: 1532900000000
 };
 
 export { SceneConfig };
