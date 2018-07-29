@@ -163,9 +163,25 @@ class Framework extends BaseApp {
         let delta = this.clock.getDelta();
 
         if(this.simRunning) {
-            if((this.simTimes[this.currentIndex+1] - this.simTimes[this.currentIndex]) > this.elapsedTime) {
-            
+            this.elapsedTime += delta * 1000;
+
+            //DEBUG
+            console.log("Elapsed = ", this.elapsedTime);
+
+            //DEBUG
+            let next = this.simTimes[this.currentIndex+1];
+            let current = this.simTimes[this.currentIndex];
+            console.log("Next - current = ", next-current);
+            if(this.elapsedTime > (next - current)) {
+                ++this.currentIndex;
+                this.userMesh.position.copy(this.simPositions[this.currentIndex]);
+                this.elapsedTime = 0;
+            }
         }
+    }
+
+    startSimulation() {
+        this.simRunning = true;
     }
 }
 
@@ -180,10 +196,8 @@ $(document).ready( () => {
     app.createScene();
     app.generateData();
 
-    $("#guiOption").on("click", () => {
-        $("#guiTab").fadeOut( () => {
-            $("#guiTabExpanded").removeClass("d-none");
-        });
+    $("#start").on("click", () => {
+        app.startSimulation();
     });
 
     $("#backColour").on("change", () => {
