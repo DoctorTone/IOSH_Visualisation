@@ -186,6 +186,8 @@ class Framework extends BaseApp {
 
     toggleSimulation() {
         this.simRunning = !this.simRunning;
+        let elem = $("#playToggleImage");
+        elem.attr("src", this.simRunning ? "images/pause-button.png" : "images/play-button.png");
     }
 }
 
