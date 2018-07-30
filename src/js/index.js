@@ -42,7 +42,6 @@ class Framework extends BaseApp {
         let userGeom = new THREE.CylinderBufferGeometry(SceneConfig.UserWidth, SceneConfig.UserWidth, SceneConfig.UserHeight, SceneConfig.UserSegments, SceneConfig.UserSegments);
         let userMat = new THREE.MeshLambertMaterial( {color: 0x0000ff} );
         let userMesh = new THREE.Mesh(userGeom, userMat);
-        userMesh.position.y = SceneConfig.UserHeight/2;
         this.root.add(userMesh);
         this.userMesh = userMesh;
     }
@@ -71,7 +70,7 @@ class Framework extends BaseApp {
                 continue;
             }
             times.push(recordData[0]);
-            positions.push(new THREE.Vector3(recordData[1], recordData[2], recordData[3]));
+            positions.push(new THREE.Vector3(parseFloat(recordData[1]), parseFloat(recordData[2]), parseFloat(recordData[3])));
         }
 
         //DEBUG
@@ -88,10 +87,10 @@ class Framework extends BaseApp {
         let timeParts;
         for(let i=0,numTimes=times.length; i<numTimes; ++i) {
             timeParts = times[i].split(":");
-            currentDate.setHours(timeParts[0]);
-            currentDate.setMinutes(timeParts[1]);
-            currentDate.setSeconds(timeParts[2]);
-            currentDate.setMilliseconds(timeParts[3]);
+            currentDate.setHours(parseFloat(timeParts[0]));
+            currentDate.setMinutes(parseFloat(timeParts[1]));
+            currentDate.setSeconds(parseFloat(timeParts[2]));
+            currentDate.setMilliseconds(parseFloat(timeParts[3]));
             millisecondTimes.push(currentDate.getTime() - SceneConfig.SecondsOffset);
         }
 
@@ -99,6 +98,9 @@ class Framework extends BaseApp {
         //console.log("Milliseconds = ", millisecondTimes);
 
         this.userMesh.position.copy(positions[0]);
+        this.userMesh.position.y += SceneConfig.UserHeight/2;
+        //DEBUG
+        console.log("Y pos = ", this.userMesh.position.y);
         this.simTimes = millisecondTimes;
         this.simPositions = positions;
     }
@@ -175,13 +177,15 @@ class Framework extends BaseApp {
             if(this.elapsedTime > (next - current)) {
                 ++this.currentIndex;
                 this.userMesh.position.copy(this.simPositions[this.currentIndex]);
+                //DEBUG
+                this.userMesh.position.z *= 10;
                 this.elapsedTime = 0;
             }
         }
     }
 
-    startSimulation() {
-        this.simRunning = true;
+    toggleSimulation() {
+        this.simRunning = !this.simRunning;
     }
 }
 
@@ -196,8 +200,8 @@ $(document).ready( () => {
     app.createScene();
     app.generateData();
 
-    $("#start").on("click", () => {
-        app.startSimulation();
+    $("#playToggle").on("click", () => {
+        app.toggleSimulation();
     });
 
     $("#backColour").on("change", () => {

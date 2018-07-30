@@ -12,10 +12,24 @@
         <div id="timePanel" class="infoPanel">
             <h3>Date: <span id="userDate"></span></h3>
             <h3>Start Time: <span id="userStart"></span></h3>
-            <button id="start" class="btn btn-primary">Start</button>
         </div>
         <div id="info" class="infoPanel">
             <img class="img-fluid" src="${require('./src/images/info.png')}">
+        </div>
+        <div id="playerControls" class="infoPanel">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md">
+                        <button class="btn btn-primary"><img src="${require('./src/images/rewind-button.png')}"></button>
+                    </div>
+                    <div class="col-md">
+                        <button id="playToggle" class="btn btn-primary"><img src="${require('./src/images/play-button.png')}"></button>
+                    </div>
+                    <div class="col-md">
+                        <button class="btn btn-primary"><img src="${require('./src/images/forward-button.png')}"></button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

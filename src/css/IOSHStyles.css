@@ -35,3 +35,11 @@ body {
     left: 1%;
     top: 1%;
 }
+#playerControls {
+    width: 25%;
+    top: 1%;
+    right: 1%;
+}
+#playerControls img {
+    width: 100%;
+}
