@@ -103,27 +103,26 @@ class Framework extends BaseApp {
 
         this.userMesh.position.copy(positions[0]);
         this.userMesh.position.y += SceneConfig.UserHeight/2;
-        //DEBUG
-        console.log("Y pos = ", this.userMesh.position.y);
         this.simTimes = millisecondTimes;
+        this.times = times;
         this.simPositions = positions;
     }
 
     setStartTime(time) {
         //Take off seconds
         let timeParts = time.split(":");
-        $('#startTime').html(timeParts[0] + ":" + timeParts[1]);
+        $('#startTime').html(timeParts[0] + ":" + timeParts[1] + ":" + timeParts[2]);
     }
 
     setEndTime(time) {
         //Take off seconds
         let timeParts = time.split(":");
-        $('#endTime').html(timeParts[0] + ":" + timeParts[1]);
+        $('#endTime').html(timeParts[0] + ":" + timeParts[1] + ":" + timeParts[2]);
     }
 
     setCurrentPlaybackTime(time) {
         let timeParts = time.split(":");
-        $("#currentTime").html(timeParts[0] + ":" + timeParts[1] + " (x" + this.playbackSpeed + ")");
+        $("#currentTime").html(timeParts[0] + ":" + timeParts[1] + ":" + timeParts[2] + " (x" + this.playbackSpeed + ")");
     }
 
     createGUI() {
@@ -183,13 +182,17 @@ class Framework extends BaseApp {
             this.elapsedTime += delta * 1000;
 
             //DEBUG
-            console.log("Elapsed = ", this.elapsedTime);
+            //console.log("Elapsed = ", this.elapsedTime);
 
             //DEBUG
             let next = this.simTimes[this.currentIndex+1];
             let current = this.simTimes[this.currentIndex];
-            console.log("Next - current = ", next-current);
+            //DEBUG
+            //console.log("Next - current = ", next-current);
+            this.setCurrentPlaybackTime(this.times[this.currentIndex]);
             if(this.elapsedTime > (next - current)) {
+                //DEBUG
+                console.log("Updated time");
                 ++this.currentIndex;
                 this.userMesh.position.copy(this.simPositions[this.currentIndex]);
                 //DEBUG
