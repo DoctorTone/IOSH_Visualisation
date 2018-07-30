@@ -43,3 +43,7 @@ body {
 #playerControls img {
     width: 100%;
 }
+.row > [class^="col-"] {
+    padding-right: 2px;
+    padding-left: 2px;
+}
