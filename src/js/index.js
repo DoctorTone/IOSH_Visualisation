@@ -17,6 +17,7 @@ class Framework extends BaseApp {
 
         this.simRunningnning = false;
         this.currentIndex = 0;
+        this.playbackSpeed = 1;
     }
 
     setContainer(container) {
@@ -76,7 +77,10 @@ class Framework extends BaseApp {
         //DEBUG
         //console.log("Times = ", times);
 
+        let numTimes = times.length;
         this.setStartTime(times[0]);
+        this.setEndTime(times[numTimes-1]);
+        this.setCurrentPlaybackTime(times[0]);
 
         //Get relative times
         let currentDate = new Date();
@@ -85,7 +89,7 @@ class Framework extends BaseApp {
 
         let millisecondTimes = [];
         let timeParts;
-        for(let i=0,numTimes=times.length; i<numTimes; ++i) {
+        for(let i=0; i<numTimes; ++i) {
             timeParts = times[i].split(":");
             currentDate.setHours(parseFloat(timeParts[0]));
             currentDate.setMinutes(parseFloat(timeParts[1]));
@@ -108,7 +112,18 @@ class Framework extends BaseApp {
     setStartTime(time) {
         //Take off seconds
         let timeParts = time.split(":");
-        $('#userStart').html(timeParts[0] + ":" + timeParts[1]);
+        $('#startTime').html(timeParts[0] + ":" + timeParts[1]);
+    }
+
+    setEndTime(time) {
+        //Take off seconds
+        let timeParts = time.split(":");
+        $('#endTime').html(timeParts[0] + ":" + timeParts[1]);
+    }
+
+    setCurrentPlaybackTime(time) {
+        let timeParts = time.split(":");
+        $("#currentTime").html(timeParts[0] + ":" + timeParts[1] + " (x" + this.playbackSpeed + ")");
     }
 
     createGUI() {
@@ -187,7 +202,7 @@ class Framework extends BaseApp {
     toggleSimulation() {
         this.simRunning = !this.simRunning;
         let elem = $("#playToggleImage");
-        elem.attr("src", this.simRunning ? "images/pause-button.png" : "images/play-button.png");
+        elem.attr("src", this.simRunning ? "images/pause-buttonWhite.png" : "images/play-buttonWhite.png");
     }
 }
 
