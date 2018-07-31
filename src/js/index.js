@@ -48,7 +48,6 @@ class Framework extends BaseApp {
             materials.preload();
             objLoader.setMaterials(materials);
             objLoader.load('../models/capsule.obj', (object) => {
-                object.rotation.z = Math.PI/2;
                 this.root.add(object)
             });
         });
