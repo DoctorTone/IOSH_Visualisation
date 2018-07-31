@@ -5,6 +5,7 @@ import $ from "jquery";
 //window.jQuery = $;
 //window.$ = $;
 import * as THREE from "three";
+import { MTLLoader, OBJLoader } from "three-obj-mtl-loader";
 import { BaseApp } from "./baseApp";
 import { SceneConfig } from "./sceneConfig";
 import UserData from "../data/playerLog.txt";
@@ -122,7 +123,8 @@ class Framework extends BaseApp {
 
     setCurrentPlaybackTime(time) {
         let timeParts = time.split(":");
-        $("#currentTime").html(timeParts[0] + ":" + timeParts[1] + ":" + timeParts[2] + " (x" + this.playbackSpeed + ")");
+        let status = this.simRunning ? " (x" + this.playbackSpeed + ")" : " (Paused)";
+        $("#currentTime").html(timeParts[0] + ":" + timeParts[1] + ":" + timeParts[2] + status);
     }
 
     createGUI() {
@@ -179,12 +181,11 @@ class Framework extends BaseApp {
         let delta = this.clock.getDelta();
 
         if(this.simRunning) {
-            this.elapsedTime += delta * 1000;
+            this.elapsedTime += delta * 1000 * this.playbackSpeed;
 
             //DEBUG
             //console.log("Elapsed = ", this.elapsedTime);
 
-            //DEBUG
             let next = this.simTimes[this.currentIndex+1];
             let current = this.simTimes[this.currentIndex];
             //DEBUG
@@ -206,6 +207,14 @@ class Framework extends BaseApp {
         this.simRunning = !this.simRunning;
         let elem = $("#playToggleImage");
         elem.attr("src", this.simRunning ? "images/pause-buttonWhite.png" : "images/play-buttonWhite.png");
+        this.setCurrentPlaybackTime(this.times[this.currentIndex]);
+    }
+
+    fastForward() {
+        this.playbackSpeed *= 2;
+        if(this.playbackSpeed > SceneConfig.MaxPlaybackSpeed) {
+            this.playbackSpeed = 1;
+        }
     }
 }
 
@@ -222,6 +231,10 @@ $(document).ready( () => {
 
     $("#playToggle").on("click", () => {
         app.toggleSimulation();
+    });
+
+    $("#fastForward").on("click", () => {
+        app.fastForward();
     });
 
     $("#backColour").on("change", () => {
