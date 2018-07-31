@@ -40,6 +40,19 @@ class Framework extends BaseApp {
         //Add ground plane
         this.addGround();
 
+        //Load models
+        let matLoader = new MTLLoader();
+        let objLoader = new OBJLoader();
+
+        matLoader.load('../models/capsule.mtl', (materials) => {
+            materials.preload();
+            objLoader.setMaterials(materials);
+            objLoader.load('../models/capsule.obj', (object) => {
+                object.rotation.z = Math.PI/2;
+                this.root.add(object)
+            });
+        });
+
         //Add user representation
         let userGeom = new THREE.CylinderBufferGeometry(SceneConfig.UserWidth, SceneConfig.UserWidth, SceneConfig.UserHeight, SceneConfig.UserSegments, SceneConfig.UserSegments);
         let userMat = new THREE.MeshLambertMaterial( {color: 0x0000ff} );
