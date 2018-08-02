@@ -291,6 +291,11 @@ class Framework extends BaseApp {
         }
 
         let dataFile = files[0];
+        let filename = dataFile.name;
+        if(filename.substr(-4) !== ".txt") {
+            alert("Only .txt files allowed!");
+            return;
+        }
         window.URL = window.URL || window.webkitURL;
 
         let fileUrl = window.URL.createObjectURL(dataFile);
