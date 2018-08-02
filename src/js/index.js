@@ -197,7 +197,6 @@ class Framework extends BaseApp {
     }
 
     update() {
-        super.update();
         let delta = this.clock.getDelta();
 
         if(this.simRunning) {
@@ -212,15 +211,19 @@ class Framework extends BaseApp {
             //console.log("Next - current = ", next-current);
             this.setCurrentPlaybackTime(this.times[this.currentIndex]);
             if(this.elapsedTime > (next - current)) {
-                //DEBUG
-                console.log("Updated time");
-                ++this.currentIndex;
-                this.userObject.position.copy(this.simPositions[this.currentIndex]);
-                //DEBUG
-                this.userObject.position.z *= 10;
-                this.elapsedTime = 0;
+                this.moveToNextPosition();
             }
         }
+
+        super.update();
+    }
+
+    moveToNextPosition() {
+        ++this.currentIndex;
+        this.userObject.position.copy(this.simPositions[this.currentIndex]);
+        //DEBUG
+        this.userObject.position.z *= 10;
+        this.elapsedTime = 0;
     }
 
     toggleSimulation() {
@@ -236,6 +239,27 @@ class Framework extends BaseApp {
             this.playbackSpeed = 1;
         }
     }
+
+    stepForward() {
+        //Only step forward if paused
+        if(this.simRunning) {
+            console.log("Cannot step forward whilst playing");
+            return;
+        }
+
+        this.moveToNextPosition();
+        this.setCurrentPlaybackTime(this.times[this.currentIndex]);
+    }
+
+    reset() {
+        this.simRunning = false;
+        this.playbackSpeed = 1;
+        this.currentIndex = 0;
+        this.elapsedTime = 0;
+        this.userObject.position.copy(this.simPositions[this.currentIndex]);
+        $("#playToggleImage").attr("src", "images/play-buttonWhite.png");
+        this.setCurrentPlaybackTime(this.times[this.currentIndex]);
+    }
 }
 
 $(document).ready( () => {
@@ -250,12 +274,20 @@ $(document).ready( () => {
 
     $('[data-toggle="tooltip"]').tooltip();
 
+    $("#reset").on("click", () => {
+        app.reset();
+    });
+
     $("#playToggle").on("click", () => {
         app.toggleSimulation();
     });
 
     $("#fastForward").on("click", () => {
         app.fastForward();
+    });
+
+    $("#stepForward").on("click", () => {
+        app.stepForward();
     });
 
     $("#backColour").on("change", () => {
