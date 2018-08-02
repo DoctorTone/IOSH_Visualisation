@@ -74,7 +74,7 @@ class Framework extends BaseApp {
         //Parse participant data
         //Update start date
         $('#userDate').html("23rd July 2018");
-        let records = UserData.split("\n");
+        let records = this.userData.split("\n");
         let numRecords = records.length;
 
         //DEBUG
@@ -295,7 +295,10 @@ class Framework extends BaseApp {
 
         let fileUrl = window.URL.createObjectURL(dataFile);
         this.dataLoader.load(fileUrl, data => {
-            console.log("Data = ", data);
+            console.log("Data loaded");
+
+            this.userData = data;
+            this.generateData();
         });
     }
 }
