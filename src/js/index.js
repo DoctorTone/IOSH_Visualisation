@@ -226,6 +226,14 @@ class Framework extends BaseApp {
         this.elapsedTime = 0;
     }
 
+    moveToPreviousPosition() {
+        --this.currentIndex;
+        this.userObject.position.copy(this.simPositions[this.currentIndex]);
+        //DEBUG
+        this.userObject.position.z *= 10;
+        this.elapsedTime = 0;
+    }
+
     toggleSimulation() {
         this.simRunning = !this.simRunning;
         let elem = $("#playToggleImage");
@@ -248,6 +256,18 @@ class Framework extends BaseApp {
         }
 
         this.moveToNextPosition();
+        this.setCurrentPlaybackTime(this.times[this.currentIndex]);
+    }
+
+    stepBackward() {
+        //Only step backward if paused
+        if(this.simRunning) {
+            console.log("Cannot step backward whilst playing");
+            return;
+        }
+
+        this.moveToPreviousPosition();
+        console.log(this.times[this.currentIndex]);
         this.setCurrentPlaybackTime(this.times[this.currentIndex]);
     }
 
@@ -280,6 +300,10 @@ $(document).ready( () => {
 
     $("#playToggle").on("click", () => {
         app.toggleSimulation();
+    });
+
+    $("#stepBackward").on("click", () => {
+        app.stepBackward();
     });
 
     $("#fastForward").on("click", () => {
