@@ -20,7 +20,7 @@ class Framework extends BaseApp {
     constructor() {
         super();
 
-        this.simRunningnning = false;
+        this.simRunning = false;
         this.currentIndex = 0;
         this.playbackSpeed = 1;
         this.dataLoader = new TextLoader();
@@ -72,8 +72,6 @@ class Framework extends BaseApp {
 
     generateData() {
         //Parse participant data
-        //Update start date
-        $('#userDate').html("23rd July 2018");
         let records = this.userData.split("\n");
         let numRecords = records.length;
 
@@ -129,6 +127,16 @@ class Framework extends BaseApp {
         this.simTimes = millisecondTimes;
         this.times = times;
         this.simPositions = positions;
+    }
+
+    setUserDate(filename) {
+        let dateParts = filename.split("_");
+        if(dateParts.length < 4) {
+            alert("Cannot get date from filename");
+            return;
+        }
+        let date = dateParts[1] + "/" + dateParts[2] + "/" + dateParts[3];
+        $("#userDate").html(date);
     }
 
     setStartTime(time) {
@@ -296,6 +304,9 @@ class Framework extends BaseApp {
             alert("Only .txt files allowed!");
             return;
         }
+
+        //Update start date
+        this.setUserDate(filename);
         window.URL = window.URL || window.webkitURL;
 
         let fileUrl = window.URL.createObjectURL(dataFile);
