@@ -280,6 +280,10 @@ class Framework extends BaseApp {
         $("#playToggleImage").attr("src", "images/play-buttonWhite.png");
         this.setCurrentPlaybackTime(this.times[this.currentIndex]);
     }
+
+    loadUserData(event) {
+        console.log("Load file");
+    }
 }
 
 $(document).ready( () => {
@@ -322,6 +326,14 @@ $(document).ready( () => {
     $("#groundColour").on("change", () => {
         let groundColour = $("#groundColour").val();
         app.onGroundColourChanged(groundColour);
+    });
+
+    $('#loadFile').on("click", evt => {
+        $('#loadFileType').trigger('click');
+    });
+
+    $('#loadFileType').on("change", evt => {
+        app.loadUserData(evt);
     });
 
     app.run();

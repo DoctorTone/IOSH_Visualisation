@@ -47,3 +47,7 @@ body {
     padding-right: 2px;
     padding-left: 2px;
 }
+#fileSelector {
+    left: 2%;
+    bottom: 5%;
+}
