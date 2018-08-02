@@ -2,6 +2,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/IOSHStyles.css";
 
 import $ from "jquery";
+import "bootstrap";
+import "popper.js";
+
 //window.jQuery = $;
 //window.$ = $;
 import * as THREE from "three";
@@ -40,6 +43,15 @@ class Framework extends BaseApp {
         //Add ground plane
         this.addGround();
 
+        //Add user representation
+        /*
+        let userGeom = new THREE.CylinderBufferGeometry(SceneConfig.UserWidth, SceneConfig.UserWidth, SceneConfig.UserHeight, SceneConfig.UserSegments, SceneConfig.UserSegments);
+        let userMat = new THREE.MeshLambertMaterial( {color: 0x0000ff} );
+        let userMesh = new THREE.Mesh(userGeom, userMat);
+        this.root.add(userMesh);
+        this.userMesh = userMesh;
+        */
+
         //Load models
         let matLoader = new MTLLoader();
         let objLoader = new OBJLoader();
@@ -48,16 +60,12 @@ class Framework extends BaseApp {
             materials.preload();
             objLoader.setMaterials(materials);
             objLoader.load('../models/capsule.obj', (object) => {
-                this.root.add(object)
+                this.userObject = object;
+                this.userObject.scale.set(SceneConfig.UserScale, SceneConfig.UserScale, SceneConfig.UserScale);
+                this.root.add(this.userObject);
+                this.generateData();
             });
         });
-
-        //Add user representation
-        let userGeom = new THREE.CylinderBufferGeometry(SceneConfig.UserWidth, SceneConfig.UserWidth, SceneConfig.UserHeight, SceneConfig.UserSegments, SceneConfig.UserSegments);
-        let userMat = new THREE.MeshLambertMaterial( {color: 0x0000ff} );
-        let userMesh = new THREE.Mesh(userGeom, userMat);
-        this.root.add(userMesh);
-        this.userMesh = userMesh;
     }
 
     generateData() {
@@ -114,8 +122,8 @@ class Framework extends BaseApp {
         //DEBUG
         //console.log("Milliseconds = ", millisecondTimes);
 
-        this.userMesh.position.copy(positions[0]);
-        this.userMesh.position.y += SceneConfig.UserHeight/2;
+        this.userObject.position.copy(positions[0]);
+        this.userObject.position.y += SceneConfig.UserHeight/2;
         this.simTimes = millisecondTimes;
         this.times = times;
         this.simPositions = positions;
@@ -207,9 +215,9 @@ class Framework extends BaseApp {
                 //DEBUG
                 console.log("Updated time");
                 ++this.currentIndex;
-                this.userMesh.position.copy(this.simPositions[this.currentIndex]);
+                this.userObject.position.copy(this.simPositions[this.currentIndex]);
                 //DEBUG
-                this.userMesh.position.z *= 10;
+                this.userObject.position.z *= 10;
                 this.elapsedTime = 0;
             }
         }
@@ -239,7 +247,8 @@ $(document).ready( () => {
     app.init(container);
     //app.createGUI();
     app.createScene();
-    app.generateData();
+
+    $('[data-toggle="tooltip"]').tooltip();
 
     $("#playToggle").on("click", () => {
         app.toggleSimulation();

@@ -22,6 +22,7 @@ const SceneConfig = {
     GroundSegments: 16,
     UserWidth: 5,
     UserHeight: 20,
+    UserScale: 5,
     UserSegments: 16,
     SecondsOffset: 1532900000000,
     MaxPlaybackSpeed: 16
