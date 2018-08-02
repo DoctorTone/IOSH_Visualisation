@@ -11,7 +11,8 @@ import * as THREE from "three";
 import { MTLLoader, OBJLoader } from "three-obj-mtl-loader";
 import { BaseApp } from "./baseApp";
 import { SceneConfig } from "./sceneConfig";
-import UserData from "../data/playerLog.txt";
+import { TextLoader } from "./textLoader";
+//import UserData from "../data/playerLog.txt";
 
 let ControlKit = require("controlkit");
 
@@ -22,6 +23,7 @@ class Framework extends BaseApp {
         this.simRunningnning = false;
         this.currentIndex = 0;
         this.playbackSpeed = 1;
+        this.dataLoader = new TextLoader();
     }
 
     setContainer(container) {
@@ -63,7 +65,7 @@ class Framework extends BaseApp {
                 this.userObject = object;
                 this.userObject.scale.set(SceneConfig.UserScale, SceneConfig.UserScale, SceneConfig.UserScale);
                 this.root.add(this.userObject);
-                this.generateData();
+                //this.generateData();
             });
         });
     }
@@ -282,7 +284,19 @@ class Framework extends BaseApp {
     }
 
     loadUserData(event) {
-        console.log("Load file");
+        let files = event.target.files;
+        if(!files.length) {
+            alert("No file specified!");
+            return;
+        }
+
+        let dataFile = files[0];
+        window.URL = window.URL || window.webkitURL;
+
+        let fileUrl = window.URL.createObjectURL(dataFile);
+        this.dataLoader.load(fileUrl, data => {
+            console.log("Data = ", data);
+        });
     }
 }
 
