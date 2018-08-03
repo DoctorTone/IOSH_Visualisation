@@ -24,6 +24,7 @@ class Framework extends BaseApp {
         this.currentIndex = 0;
         this.playbackSpeed = 1;
         this.dataLoader = new TextLoader();
+        this.dataLoaded = false;
     }
 
     setContainer(container) {
@@ -237,7 +238,11 @@ class Framework extends BaseApp {
     }
 
     moveToPreviousPosition() {
-        --this.currentIndex;
+        if(--this.currentIndex < 0) {
+            console.log("Can't go backwards from start");
+            this.currentIndex = 0;
+            return;
+        }
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
         //DEBUG
         this.userObject.position.z *= 10;
@@ -270,6 +275,11 @@ class Framework extends BaseApp {
     }
 
     stepBackward() {
+        //Don't adjust anything if no data loaded
+        if(!this.dataLoaded) {
+            console.log("No data loaded");
+            return;
+        } 
         //Only step backward if paused
         if(this.simRunning) {
             console.log("Cannot step backward whilst playing");
