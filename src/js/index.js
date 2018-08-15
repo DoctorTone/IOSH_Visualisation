@@ -47,15 +47,16 @@ class Framework extends BaseApp {
         this.addGround();
 
         //Add user representation
-        /*
-        let userGeom = new THREE.CylinderBufferGeometry(SceneConfig.UserWidth, SceneConfig.UserWidth, SceneConfig.UserHeight, SceneConfig.UserSegments, SceneConfig.UserSegments);
+
+        let userGeom = new THREE.SphereBufferGeometry(SceneConfig.UserRadius, SceneConfig.UserSegments, SceneConfig.UserSegments);
         let userMat = new THREE.MeshLambertMaterial( {color: 0x0000ff} );
         let userMesh = new THREE.Mesh(userGeom, userMat);
         this.root.add(userMesh);
-        this.userMesh = userMesh;
-        */
+        this.userObject = userMesh;
+
 
         //Load models
+        /*
         let matLoader = new MTLLoader();
         let objLoader = new OBJLoader();
 
@@ -69,6 +70,7 @@ class Framework extends BaseApp {
                 //this.generateData();
             });
         });
+        */
     }
 
     generateData() {
@@ -214,7 +216,7 @@ class Framework extends BaseApp {
             this.elapsedTime += delta * 1000 * this.playbackSpeed;
 
             //DEBUG
-            //console.log("Elapsed = ", this.elapsedTime);
+            console.log("Elapsed = ", this.elapsedTime);
 
             let next = this.simTimes[this.currentIndex+1];
             let current = this.simTimes[this.currentIndex];
