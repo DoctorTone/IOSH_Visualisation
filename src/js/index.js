@@ -235,7 +235,7 @@ class Framework extends BaseApp {
         ++this.currentIndex;
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
         //DEBUG
-        this.userObject.position.multiplyScalar(10);
+        this.userObject.position.multiplyScalar(SceneConfig.PosScale);
         this.userObject.position.z *= -1;
 
         this.elapsedTime = 0;

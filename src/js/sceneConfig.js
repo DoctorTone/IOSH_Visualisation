@@ -26,7 +26,8 @@ const SceneConfig = {
     UserRadius: 10,
     UserSegments: 16,
     SecondsOffset: 1532900000000,
-    MaxPlaybackSpeed: 16
+    MaxPlaybackSpeed: 16,
+    PosScale: 10
 };
 
 export { SceneConfig };
