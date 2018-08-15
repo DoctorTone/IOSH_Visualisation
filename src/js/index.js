@@ -155,7 +155,7 @@ class Framework extends BaseApp {
     setCurrentPlaybackTime(time) {
         let timeParts = time.split(":");
         let status = this.simRunning ? " (x" + this.playbackSpeed + ")" : " (Paused)";
-        $("#currentTime").html(timeParts[0] + ":" + timeParts[1] + ":" + timeParts[2] + status);
+        $("#currentTime").html(timeParts[0] + ":" + timeParts[1] + ":" + timeParts[2] + ":" + timeParts[3] + status);
     }
 
     createGUI() {
