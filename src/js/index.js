@@ -216,7 +216,7 @@ class Framework extends BaseApp {
             this.elapsedTime += delta * 1000 * this.playbackSpeed;
 
             //DEBUG
-            console.log("Elapsed = ", this.elapsedTime);
+            //console.log("Elapsed = ", this.elapsedTime);
 
             let next = this.simTimes[this.currentIndex+1];
             let current = this.simTimes[this.currentIndex];
@@ -235,7 +235,9 @@ class Framework extends BaseApp {
         ++this.currentIndex;
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
         //DEBUG
-        this.userObject.position.z *= 10;
+        this.userObject.position.multiplyScalar(10);
+        this.userObject.position.z *= -1;
+
         this.elapsedTime = 0;
     }
 
