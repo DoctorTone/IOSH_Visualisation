@@ -47,13 +47,17 @@ class Framework extends BaseApp {
         this.addGround();
 
         //Add user representation
-
         let userGeom = new THREE.SphereBufferGeometry(SceneConfig.UserRadius, SceneConfig.UserSegments, SceneConfig.UserSegments);
         let userMat = new THREE.MeshLambertMaterial( {color: 0x0000ff} );
         let userMesh = new THREE.Mesh(userGeom, userMat);
         this.root.add(userMesh);
         this.userObject = userMesh;
 
+        //Add trail representation
+        let trailGeom = new THREE.SphereBufferGeometry(SceneConfig.UserRadius/4, SceneConfig.UserSegments, SceneConfig.UserSegments);
+        let trailMat = new THREE.MeshLambertMaterial( {color: 0xff0000} );
+        let trailMesh = new THREE.Mesh(trailGeom, trailMat);
+        this.trailObject = trailMesh;
 
         //Load models
         /*
@@ -232,13 +236,17 @@ class Framework extends BaseApp {
     }
 
     moveToNextPosition() {
+        let trail = this.trailObject.clone();
+        this.root.add(trail);
+        trail.position.copy(this.simPositions[this.currentIndex]);
+        trail.position.multiplyScalar(SceneConfig.PosScale);
+        trail.position.z *= -1;
+
         ++this.currentIndex;
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
-        //DEBUG
+        //May need to amplify space
         this.userObject.position.multiplyScalar(SceneConfig.PosScale);
         this.userObject.position.z *= -1;
-
-        this.elapsedTime = 0;
     }
 
     moveToPreviousPosition() {
@@ -283,7 +291,7 @@ class Framework extends BaseApp {
         if(!this.dataLoaded) {
             console.log("No data loaded");
             return;
-        } 
+        }
         //Only step backward if paused
         if(this.simRunning) {
             console.log("Cannot step backward whilst playing");
