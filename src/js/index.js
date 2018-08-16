@@ -123,15 +123,22 @@ class Framework extends BaseApp {
             currentDate.setMinutes(parseFloat(timeParts[1]));
             currentDate.setSeconds(parseFloat(timeParts[2]));
             currentDate.setMilliseconds(parseFloat(timeParts[3]));
-            millisecondTimes.push(currentDate.getTime() - SceneConfig.SecondsOffset);
+            millisecondTimes.push(currentDate.getTime());
+        }
+
+        //Get all times relative to zero
+        let timeOffset = millisecondTimes[0];
+        let simTimes = [];
+        for(let i=0; i<numTimes; ++i) {
+            simTimes.push(millisecondTimes[i] - timeOffset);
         }
 
         //DEBUG
-        //console.log("Milliseconds = ", millisecondTimes);
+        //console.log("simTimes = ", simTimes);
 
         this.userObject.position.copy(positions[0]);
         this.userObject.position.y += SceneConfig.UserHeight/2;
-        this.simTimes = millisecondTimes;
+        this.simTimes = simTimes;
         this.times = times;
         this.simPositions = positions;
     }
@@ -222,13 +229,9 @@ class Framework extends BaseApp {
             //DEBUG
             //console.log("Elapsed = ", this.elapsedTime);
 
-            let next = this.simTimes[this.currentIndex+1];
-            let current = this.simTimes[this.currentIndex];
-            //DEBUG
-            //console.log("Next - current = ", next-current);
-            this.setCurrentPlaybackTime(this.times[this.currentIndex]);
-            if(this.elapsedTime > (next - current)) {
+            while(this.elapsedTime > this.simTimes[this.currentIndex+1]) {
                 this.moveToNextPosition();
+                this.setCurrentPlaybackTime(this.times[this.currentIndex]);
             }
         }
 
