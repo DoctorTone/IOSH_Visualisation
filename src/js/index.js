@@ -262,6 +262,11 @@ class Framework extends BaseApp {
     }
 
     toggleSimulation() {
+        //Ensure data loaded
+        if(!this.dataLoaded) {
+            alert("No data loaded!");
+            return;
+        }
         this.simRunning = !this.simRunning;
         let elem = $("#playToggleImage");
         elem.attr("src", this.simRunning ? "images/pause-buttonWhite.png" : "images/play-buttonWhite.png");
@@ -334,7 +339,7 @@ class Framework extends BaseApp {
         let fileUrl = window.URL.createObjectURL(dataFile);
         this.dataLoader.load(fileUrl, data => {
             console.log("Data loaded");
-
+            this.dataLoaded = true;
             this.userData = data;
             this.generateData();
         });
