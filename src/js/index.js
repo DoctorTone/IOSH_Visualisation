@@ -229,10 +229,16 @@ class Framework extends BaseApp {
             //DEBUG
             //console.log("Elapsed = ", this.elapsedTime);
 
-            while(this.elapsedTime > this.simTimes[this.currentIndex+1]) {
-                this.moveToNextPosition();
-                this.setCurrentPlaybackTime(this.times[this.currentIndex]);
+            if(this.playbackSpeed > 0) {
+                while(this.elapsedTime > this.simTimes[this.currentIndex+1]) {
+                    this.moveToNextPosition();
+                }
+            } else {
+                while(this.elapsedTime < this.simTimes[this.currentIndex-1]) {
+                    this.moveToPreviousPosition();
+                }
             }
+            this.setCurrentPlaybackTime(this.times[this.currentIndex]);
         }
 
         super.update();
@@ -253,6 +259,22 @@ class Framework extends BaseApp {
     }
 
     moveToPreviousPosition() {
+        /*
+        let trail = this.trailObject.clone();
+        this.root.add(trail);
+        trail.position.copy(this.simPositions[this.currentIndex]);
+        trail.position.multiplyScalar(SceneConfig.PosScale);
+        trail.position.z *= -1;
+        */
+
+        --this.currentIndex;
+        this.userObject.position.copy(this.simPositions[this.currentIndex]);
+        //May need to amplify space
+        this.userObject.position.multiplyScalar(SceneConfig.PosScale);
+        this.userObject.position.z *= -1;
+    }
+
+    stepToPreviousPosition() {
         if(--this.currentIndex < 0) {
             console.log("Can't go backwards from start");
             this.currentIndex = 0;
@@ -277,10 +299,25 @@ class Framework extends BaseApp {
     }
 
     fastForward() {
+        if(this.playbackSpeed < 0) {
+            this.playbackSpeed = 1;
+        }
         this.playbackSpeed *= 2;
         if(this.playbackSpeed > SceneConfig.MaxPlaybackSpeed) {
             this.playbackSpeed = 1;
         }
+    }
+
+    rewind() {
+        if(this.playbackSpeed < 0) {
+            this.playbackSpeed *= -1;
+        }
+        this.playbackSpeed *= 2;
+        if(this.playbackSpeed > SceneConfig.MaxPlaybackSpeed) {
+            this.playbackSpeed = 1;
+        }
+        //Convert back to negative as rewinding
+        this.playbackSpeed *= -1;
     }
 
     stepForward() {
@@ -375,6 +412,10 @@ $(document).ready( () => {
 
     $("#fastForward").on("click", () => {
         app.fastForward();
+    });
+
+    $("#rewind").on("click", () => {
+        app.rewind();
     });
 
     $("#stepForward").on("click", () => {
