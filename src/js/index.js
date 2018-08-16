@@ -136,11 +136,24 @@ class Framework extends BaseApp {
         //DEBUG
         //console.log("simTimes = ", simTimes);
 
+        //Create trail for each position
+        let trailRep, trails = [];
+        for(let i=0; i<numTimes; ++i) {
+            trailRep = this.trailObject.clone();
+            trailRep.visible = false;
+            this.root.add(trailRep);
+            trailRep.position.copy(positions[i]);
+            trailRep.position.multiplyScalar(SceneConfig.PosScale);
+            trailRep.position.z *= -1;
+            trails.push(trailRep);
+        }
+
         this.userObject.position.copy(positions[0]);
         this.userObject.position.y += SceneConfig.UserHeight/2;
         this.simTimes = simTimes;
         this.times = times;
         this.simPositions = positions;
+        this.trails = trails;
     }
 
     setUserDate(filename) {
@@ -245,11 +258,7 @@ class Framework extends BaseApp {
     }
 
     moveToNextPosition() {
-        let trail = this.trailObject.clone();
-        this.root.add(trail);
-        trail.position.copy(this.simPositions[this.currentIndex]);
-        trail.position.multiplyScalar(SceneConfig.PosScale);
-        trail.position.z *= -1;
+       this.trails[this.currentIndex].visible = true;
 
         ++this.currentIndex;
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
@@ -259,13 +268,7 @@ class Framework extends BaseApp {
     }
 
     moveToPreviousPosition() {
-        /*
-        let trail = this.trailObject.clone();
-        this.root.add(trail);
-        trail.position.copy(this.simPositions[this.currentIndex]);
-        trail.position.multiplyScalar(SceneConfig.PosScale);
-        trail.position.z *= -1;
-        */
+        this.trails[this.currentIndex].visible = false;
 
         --this.currentIndex;
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
@@ -356,6 +359,8 @@ class Framework extends BaseApp {
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
         $("#playToggleImage").attr("src", "images/play-buttonWhite.png");
         this.setCurrentPlaybackTime(this.times[this.currentIndex]);
+        //Hide trails
+
     }
 
     loadUserData(event) {
