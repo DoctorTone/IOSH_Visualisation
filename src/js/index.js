@@ -360,7 +360,9 @@ class Framework extends BaseApp {
         $("#playToggleImage").attr("src", "images/play-buttonWhite.png");
         this.setCurrentPlaybackTime(this.times[this.currentIndex]);
         //Hide trails
-
+        for(let i=0, numTrails=this.trails.length; i<numTrails; ++i) {
+            this.trails[i].visible = false;
+        }
     }
 
     loadUserData(event) {
