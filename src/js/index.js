@@ -358,6 +358,26 @@ class Framework extends BaseApp {
         this.showTrails = !this.showTrails;
     }
 
+    setStartArrow() {
+        if(!this.dataLoaded) return;
+
+        this.pointerStart.visible = true;
+        this.pointerStart.position.copy(this.simPositions[this.currentIndex]);
+        //May need to amplify space
+        this.pointerStart.position.multiplyScalar(SceneConfig.PosScale);
+        this.pointerStart.position.z *= -1;
+    }
+
+    setEndArrow() {
+        if(!this.dataLoaded) return;
+
+        this.pointerEnd.visible = true;
+        this.pointerEnd.position.copy(this.simPositions[this.currentIndex]);
+        //May need to amplify space
+        this.pointerEnd.position.multiplyScalar(SceneConfig.PosScale);
+        this.pointerEnd.position.z *= -1;
+    }
+
     reset() {
         this.simRunning = false;
         this.playbackSpeed = 1;
@@ -456,6 +476,14 @@ $(document).ready( () => {
 
     $('#checkTrail').on("change", () => {
         app.toggleTrails();
+    });
+
+    $('#markStart').on("click", () => {
+        app.setStartArrow();
+    });
+
+    $('#markEnd').on("click", () => {
+        app.setEndArrow();
     });
 
     app.run();
