@@ -173,19 +173,19 @@ class Framework extends BaseApp {
     setStartTime(time) {
         //Take off seconds
         let timeParts = time.split(":");
-        $('#startTime').html(timeParts[0] + ":" + timeParts[1] + ":" + timeParts[2]);
+        $('#startTime').html(timeParts[0] + ":" + timeParts[1].padStart(2, '0') + ":" + timeParts[2].padStart(2, '0'));
     }
 
     setEndTime(time) {
         //Take off seconds
         let timeParts = time.split(":");
-        $('#endTime').html(timeParts[0] + ":" + timeParts[1] + ":" + timeParts[2]);
+        $('#endTime').html(timeParts[0] + ":" + timeParts[1].padStart(2, '0') + ":" + timeParts[2].padStart(2, '0'));
     }
 
     setCurrentPlaybackTime(time) {
         let timeParts = time.split(":");
         let status = this.simRunning ? " (x" + this.playbackSpeed + ")" : " (Paused)";
-        $("#currentTime").html(timeParts[0] + ":" + timeParts[1] + ":" + timeParts[2] + ":" + timeParts[3] + status);
+        $("#currentTime").html(timeParts[0] + ":" + timeParts[1].padStart(2, '0') + ":" + timeParts[2].padStart(2, '0') + ":" + timeParts[3].padStart(2, '0') + status);
     }
 
     createGUI() {
