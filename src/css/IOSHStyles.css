@@ -47,6 +47,11 @@ body {
     padding-right: 2px;
     padding-left: 2px;
 }
+#trails {
+    top: 7.5%;
+    right: 15%;
+    color: white;
+}
 #fileSelector {
     left: 2%;
     bottom: 5%;

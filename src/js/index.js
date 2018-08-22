@@ -23,6 +23,7 @@ class Framework extends BaseApp {
         this.simRunning = false;
         this.currentIndex = 0;
         this.playbackSpeed = 1;
+        this.showTrails = true;
         this.dataLoader = new TextLoader();
         this.dataLoaded = false;
     }
@@ -258,7 +259,7 @@ class Framework extends BaseApp {
     }
 
     moveToNextPosition() {
-       this.trails[this.currentIndex].visible = true;
+       this.trails[this.currentIndex].visible = this.showTrails;
 
         ++this.currentIndex;
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
@@ -349,6 +350,10 @@ class Framework extends BaseApp {
         this.moveToPreviousPosition();
         console.log(this.times[this.currentIndex]);
         this.setCurrentPlaybackTime(this.times[this.currentIndex]);
+    }
+
+    toggleTrails() {
+        this.showTrails = !this.showTrails;
     }
 
     reset() {
@@ -445,6 +450,10 @@ $(document).ready( () => {
 
     $('#loadFileType').on("change", evt => {
         app.loadUserData(evt);
+    });
+
+    $('#checkTrail').on("change", () => {
+        app.toggleTrails();
     });
 
     app.run();
