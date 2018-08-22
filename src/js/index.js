@@ -61,21 +61,23 @@ class Framework extends BaseApp {
         this.trailObject = trailMesh;
 
         //Load models
-        /*
+
         let matLoader = new MTLLoader();
         let objLoader = new OBJLoader();
 
-        matLoader.load('../models/capsule.mtl', (materials) => {
+        matLoader.load('../models/pointer.mtl', (materials) => {
             materials.preload();
             objLoader.setMaterials(materials);
-            objLoader.load('../models/capsule.obj', (object) => {
-                this.userObject = object;
-                this.userObject.scale.set(SceneConfig.UserScale, SceneConfig.UserScale, SceneConfig.UserScale);
-                this.root.add(this.userObject);
-                //this.generateData();
+            objLoader.load('../models/pointer.obj', (object) => {
+                object.scale.set(SceneConfig.UserScale, SceneConfig.UserScale, SceneConfig.UserScale);
+                this.pointerStart = object;
+                this.pointerEnd = object.clone();
+                this.root.add(this.pointerStart);
+                this.root.add(this.pointerEnd);
+                this.pointerStart.visible = this.pointerEnd.visible = false;
             });
         });
-        */
+
     }
 
     generateData() {

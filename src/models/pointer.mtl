@@ -1,7 +1,7 @@
-# Blender MTL File: 'capsule.blend'
+# Blender MTL File: 'pointer.blend'
 # Material Count: 1
 
-newmtl None
+newmtl Blue
 Ns 0
 Ka 0.000000 0.000000 0.000000
 Kd 0.0 0.0 0.8
