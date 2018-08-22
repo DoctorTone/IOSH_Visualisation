@@ -52,16 +52,21 @@
                         <button id="markStart" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Mark Start"><img src="${require('./src/images/pinWhite.png')}"></button>
                     </div>
                     <div class="col-md">
-                        <span>Dist: 00</span>
-                    </div>
-                    <div class="col-md">
-                        <span>Speed: 00</span>
-                    </div>
-                    <div class="col-md">
                         <button id="markEnd" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Mark End"><img src="${require('./src/images/pinWhite.png')}"></button>
+                    </div>
+                    <div class="col-md">
+                        <button id="clearMarks" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Clear Markers"><img src="${require('./src/images/crossWhite.png')}"></button>
                     </div>
                 </div>
             </div>
+        </div>
+        <div id="distanceMetrics" class="infoPanel">
+            <p>
+                Distance :<span id="distance"> 00.00</span>
+            </p>
+            <p>
+                Speed :<span id="speed"> 00.00</span>
+            </p>
         </div>
         <div id="fileSelector" class="infoPanel">
             <button id="loadFile" class="btn btn-primary btn-file">Load Data</button>

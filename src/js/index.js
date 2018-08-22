@@ -26,6 +26,7 @@ class Framework extends BaseApp {
         this.showTrails = true;
         this.dataLoader = new TextLoader();
         this.dataLoaded = false;
+        this.startIndex = this.endIndex = 0;
     }
 
     setContainer(container) {
@@ -363,6 +364,9 @@ class Framework extends BaseApp {
 
         this.pointerStart.visible = true;
         this.pointerStart.position.copy(this.simPositions[this.currentIndex]);
+        this.startIndex = this.currentIndex;
+        //DEBUG
+        console.log("Start index = ", this.startIndex);
         //May need to amplify space
         this.pointerStart.position.multiplyScalar(SceneConfig.PosScale);
         this.pointerStart.position.z *= -1;
@@ -373,9 +377,15 @@ class Framework extends BaseApp {
 
         this.pointerEnd.visible = true;
         this.pointerEnd.position.copy(this.simPositions[this.currentIndex]);
+        this.endIndex = this.currentIndex;
+        //DEBUG
+        console.log("End index = ", this.endIndex);
         //May need to amplify space
         this.pointerEnd.position.multiplyScalar(SceneConfig.PosScale);
         this.pointerEnd.position.z *= -1;
+
+        //Update distance metrics
+        this.updateDistanceMetrics();
     }
 
     reset() {
@@ -390,6 +400,23 @@ class Framework extends BaseApp {
         for(let i=0, numTrails=this.trails.length; i<numTrails; ++i) {
             this.trails[i].visible = false;
         }
+    }
+
+    updateDistanceMetrics() {
+        let distance = 0;
+        //DEBUG
+        console.log("Start time = ", this.simTimes[this.startIndex]);
+        console.log("End time = ", this.simTimes[this.endIndex]);
+        for(let i=this.startIndex; i< this.endIndex; ++i) {
+            distance += this.simPositions[i].distanceTo(this.simPositions[i+1]);
+        }
+
+        //DEBUG
+        //console.log("Distance = ", distance);
+        let elapsedTime = (this.simTimes[this.endIndex] - this.simTimes[this.startIndex])/1000;
+        let speed = distance/elapsedTime;
+        $('#distance').html(distance.toFixed(2));
+        $('#speed').html(speed.toFixed(2));
     }
 
     loadUserData(event) {

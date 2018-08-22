@@ -44,9 +44,9 @@ body {
     width: 100%;
 }
 #distanceControls {
-    width: 12.5%;
+    width: 10%;
     top: 7.5%;
-    right: 5%;
+    right: 11%;
     color: white;
 }
 #distanceControls button {
@@ -55,12 +55,17 @@ body {
 #distanceControls img {
     width: 100%;
 }
+#distanceMetrics {
+    top: 14%;
+    right: 13.5%;
+    color: white;
+}
 .row > [class^="col-"] {
     padding-right: 2px;
     padding-left: 2px;
 }
 #trails {
-    top: 15%;
+    top: 22.5%;
     right: 15%;
     color: white;
 }
