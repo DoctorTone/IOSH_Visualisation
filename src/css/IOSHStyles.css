@@ -43,12 +43,23 @@ body {
 #playerControls img {
     width: 100%;
 }
+#distanceControls {
+    width: 12.5%;
+    top: 7.5%;
+    right: 5%;
+}
+#distanceControls button {
+    padding: 0;
+}
+#distanceControls img {
+    width: 100%;
+}
 .row > [class^="col-"] {
     padding-right: 2px;
     padding-left: 2px;
 }
 #trails {
-    top: 7.5%;
+    top: 15%;
     right: 15%;
     color: white;
 }
