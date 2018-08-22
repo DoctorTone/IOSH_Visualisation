@@ -388,6 +388,10 @@ class Framework extends BaseApp {
         this.updateDistanceMetrics();
     }
 
+    clearArrows() {
+        this.pointerStart.visible = this.pointerEnd.visible = false;
+    }
+
     reset() {
         this.simRunning = false;
         this.playbackSpeed = 1;
@@ -511,6 +515,10 @@ $(document).ready( () => {
 
     $('#markEnd').on("click", () => {
         app.setEndArrow();
+    });
+
+    $('#clearMarks').on("click", () => {
+        app.clearArrows();
     });
 
     app.run();
