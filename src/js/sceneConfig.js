@@ -5,14 +5,14 @@ const SceneConfig = {
     ambientLightColour: 0x383838,
     pointLightColour: 0xffffff,
     CameraPos: {
-        x: 182,
-        y: 50,
-        z: 340
+        x: 66,
+        y: 60,
+        z: 75
     },
     LookAtPos: {
-        x: -70,
-        y: -20,
-        z: 40
+        x: -10,
+        y: -10,
+        z: -15
     },
     NEAR_PLANE: 0.1,
     FAR_PLANE: 10000,
@@ -28,7 +28,8 @@ const SceneConfig = {
     SecondsOffset: 1532900000000,
     MaxPlaybackSpeed: 16,
     PosScale: 10,
-    FloorHeight: 3.84
+    FloorHeight: 3.84,
+    PointerHeight: 2
 };
 
 export { SceneConfig };

@@ -71,7 +71,7 @@ class Framework extends BaseApp {
             materials.preload();
             objLoader.setMaterials(materials);
             objLoader.load('../models/pointer.obj', (object) => {
-                object.scale.set(SceneConfig.UserScale, SceneConfig.UserScale, SceneConfig.UserScale);
+                //object.scale.set(SceneConfig.UserScale, SceneConfig.UserScale, SceneConfig.UserScale);
                 this.pointerStart = object;
                 this.pointerEnd = object.clone();
                 this.root.add(this.pointerStart);
@@ -405,6 +405,7 @@ class Framework extends BaseApp {
 
         this.pointerStart.visible = true;
         this.pointerStart.position.copy(this.simPositions[this.currentIndex]);
+        this.pointerStart.position.y += SceneConfig.PointerHeight;
         this.startIndex = this.currentIndex;
         //DEBUG
         console.log("Start index = ", this.startIndex);
@@ -418,6 +419,7 @@ class Framework extends BaseApp {
 
         this.pointerEnd.visible = true;
         this.pointerEnd.position.copy(this.simPositions[this.currentIndex]);
+        this.pointerEnd.position.y += SceneConfig.PointerHeight;
         this.endIndex = this.currentIndex;
         //DEBUG
         console.log("End index = ", this.endIndex);
