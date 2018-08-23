@@ -13,6 +13,7 @@ import { BaseApp } from "./baseApp";
 import { SceneConfig } from "./sceneConfig";
 import { TextLoader } from "./textLoader";
 //import UserData from "../data/playerLog.txt";
+let FBXLoader = require("three-fbx-loader");
 
 let ControlKit = require("controlkit");
 
@@ -79,6 +80,22 @@ class Framework extends BaseApp {
             });
         });
 
+        matLoader.load("../models/floor.mtl", (materials) => {
+            materials.preload();
+            objLoader.setMaterials(materials);
+            objLoader.load("../models/floor.obj", (object) => {
+                object.scale.set(SceneConfig.UserScale, SceneConfig.UserScale, SceneConfig.UserScale);
+                this.root.add(object);
+            });
+        });
+
+        /*
+        let fbxLoader = new FBXLoader();
+
+        fbxLoader.load("../models/floor_plan_3.fbx", (object) => {
+            this.root.add(object);
+        });
+        */
     }
 
     generateData() {

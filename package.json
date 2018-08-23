@@ -32,7 +32,8 @@
     "controlkit": "^0.1.9",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
-    "three": "^0.92.0",
+    "three": "^0.95.0",
+    "three-fbx-loader": "^1.0.3",
     "three-obj-mtl-loader": "^1.0.3",
     "three-trackballcontrols": "0.0.7"
   }
