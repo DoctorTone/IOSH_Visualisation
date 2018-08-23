@@ -84,7 +84,8 @@ class Framework extends BaseApp {
             materials.preload();
             objLoader.setMaterials(materials);
             objLoader.load("../models/floor.obj", (object) => {
-                object.scale.set(SceneConfig.UserScale, SceneConfig.UserScale, SceneConfig.UserScale);
+                //object.scale.set(SceneConfig.UserScale, SceneConfig.UserScale, SceneConfig.UserScale);
+                object.rotation.y = Math.PI;
                 this.root.add(object);
             });
         });
@@ -164,14 +165,14 @@ class Framework extends BaseApp {
             trailRep.visible = false;
             this.root.add(trailRep);
             trailRep.position.copy(positions[i]);
-            trailRep.position.multiplyScalar(SceneConfig.PosScale);
+            //trailRep.position.multiplyScalar(SceneConfig.PosScale);
             trailRep.position.z *= -1;
             trails.push(trailRep);
         }
 
         this.userObject.position.copy(positions[0]);
         //May need to amplify space
-        this.userObject.position.multiplyScalar(SceneConfig.PosScale);
+        //this.userObject.position.multiplyScalar(SceneConfig.PosScale);
         this.userObject.position.z *= -1;
         //this.userObject.position.y += SceneConfig.UserHeight/2;
         this.simTimes = simTimes;
@@ -287,7 +288,7 @@ class Framework extends BaseApp {
         ++this.currentIndex;
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
         //May need to amplify space
-        this.userObject.position.multiplyScalar(SceneConfig.PosScale);
+        //this.userObject.position.multiplyScalar(SceneConfig.PosScale);
         this.userObject.position.z *= -1;
     }
 
@@ -297,7 +298,7 @@ class Framework extends BaseApp {
         --this.currentIndex;
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
         //May need to amplify space
-        this.userObject.position.multiplyScalar(SceneConfig.PosScale);
+        //this.userObject.position.multiplyScalar(SceneConfig.PosScale);
         this.userObject.position.z *= -1;
     }
 
@@ -388,7 +389,7 @@ class Framework extends BaseApp {
         //DEBUG
         console.log("Start index = ", this.startIndex);
         //May need to amplify space
-        this.pointerStart.position.multiplyScalar(SceneConfig.PosScale);
+        //this.pointerStart.position.multiplyScalar(SceneConfig.PosScale);
         this.pointerStart.position.z *= -1;
     }
 
@@ -401,7 +402,7 @@ class Framework extends BaseApp {
         //DEBUG
         console.log("End index = ", this.endIndex);
         //May need to amplify space
-        this.pointerEnd.position.multiplyScalar(SceneConfig.PosScale);
+        //this.pointerEnd.position.multiplyScalar(SceneConfig.PosScale);
         this.pointerEnd.position.z *= -1;
 
         //Update distance metrics
