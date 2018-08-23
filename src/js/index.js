@@ -297,8 +297,7 @@ class Framework extends BaseApp {
             //DEBUG
             console.log("Reached the end");
 
-            this.elapsedTime = this.simTimes[this.currentIndex];
-            this.simRunning = false;
+            this.resetPlayBack(this.simTimes[this.currentIndex]);
         }
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
         //May need to amplify space
@@ -448,9 +447,9 @@ class Framework extends BaseApp {
         }
     }
 
-    resetPlayBack() {
+    resetPlayBack(time) {
         //Reached start - reset everything
-        this.elapsedTime = 0;
+        this.elapsedTime = time;
         this.simRunning = false;
         this.playbackSpeed = 1;
         $("#playToggleImage").attr("src", "images/play-buttonWhite.png");
