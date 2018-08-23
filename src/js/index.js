@@ -153,7 +153,10 @@ class Framework extends BaseApp {
         }
 
         this.userObject.position.copy(positions[0]);
-        this.userObject.position.y += SceneConfig.UserHeight/2;
+        //May need to amplify space
+        this.userObject.position.multiplyScalar(SceneConfig.PosScale);
+        this.userObject.position.z *= -1;
+        //this.userObject.position.y += SceneConfig.UserHeight/2;
         this.simTimes = simTimes;
         this.times = times;
         this.simPositions = positions;
