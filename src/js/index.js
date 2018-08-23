@@ -86,6 +86,7 @@ class Framework extends BaseApp {
             objLoader.load("../models/floor.obj", (object) => {
                 //object.scale.set(SceneConfig.UserScale, SceneConfig.UserScale, SceneConfig.UserScale);
                 object.rotation.y = Math.PI;
+                object.position.y = SceneConfig.FloorHeight;
                 this.root.add(object);
             });
         });

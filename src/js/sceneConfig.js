@@ -27,7 +27,8 @@ const SceneConfig = {
     UserSegments: 16,
     SecondsOffset: 1532900000000,
     MaxPlaybackSpeed: 16,
-    PosScale: 10
+    PosScale: 10,
+    FloorHeight: 3.84
 };
 
 export { SceneConfig };
