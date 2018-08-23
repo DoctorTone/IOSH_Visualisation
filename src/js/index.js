@@ -449,12 +449,15 @@ class Framework extends BaseApp {
         this.currentIndex = 0;
         this.elapsedTime = 0;
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
+        this.userObject.position.z *= -1;
         $("#playToggleImage").attr("src", "images/play-buttonWhite.png");
         this.setCurrentPlaybackTime(this.times[this.currentIndex]);
         //Hide trails
         for(let i=0, numTrails=this.trails.length; i<numTrails; ++i) {
             this.trails[i].visible = false;
         }
+        //Hide pointers
+        this.pointerStart.visible = this.pointerEnd.visible = false;
     }
 
     resetPlayBack(time) {
