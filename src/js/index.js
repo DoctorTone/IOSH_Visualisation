@@ -421,6 +421,10 @@ class Framework extends BaseApp {
     setEndArrow() {
         if(!this.dataLoaded) return;
 
+        if(!this.pointerStart.visible) {
+            console.log("Can't set end arrow if no start");
+            return;
+        }
         this.pointerEnd.visible = true;
         this.pointerEnd.position.copy(this.simPositions[this.currentIndex]);
         this.pointerEnd.position.y += SceneConfig.PointerHeight;
