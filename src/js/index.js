@@ -270,7 +270,7 @@ class Framework extends BaseApp {
             this.elapsedTime += delta * 1000 * this.playbackSpeed;
 
             //DEBUG
-            console.log("Elapsed = ", this.elapsedTime);
+            //console.log("Elapsed = ", this.elapsedTime);
 
             if(this.playbackSpeed > 0) {
                 while(this.elapsedTime > this.simTimes[this.currentIndex+1]) {
@@ -294,8 +294,10 @@ class Framework extends BaseApp {
         //DEBUG
         console.log("Current = ", this.currentIndex);
         if(this.currentIndex === this.maxIndex) {
+            //DEBUG
             console.log("Reached the end");
-            this.currentIndex = this.maxIndex;
+
+            this.elapsedTime = this.simTimes[this.currentIndex];
             this.simRunning = false;
         }
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
@@ -308,6 +310,13 @@ class Framework extends BaseApp {
         this.trails[this.currentIndex].visible = false;
 
         --this.currentIndex;
+        if(this.currentIndex === 0) {
+            //DEBUG
+            console.log("Reached the start");
+
+            this.elapsedTime = 0;
+            this.simRunning = false;
+        }
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
         //May need to amplify space
         //this.userObject.position.multiplyScalar(SceneConfig.PosScale);
