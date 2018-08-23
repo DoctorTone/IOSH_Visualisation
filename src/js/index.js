@@ -129,6 +129,10 @@ class Framework extends BaseApp {
         //console.log("Times = ", times);
 
         let numTimes = times.length;
+        this.maxIndex = numTimes - 1;
+        //DEBUG
+        console.log("Max index = ", this.maxIndex);
+
         this.setStartTime(times[0]);
         this.setEndTime(times[numTimes-1]);
         this.setCurrentPlaybackTime(times[0]);
@@ -266,7 +270,7 @@ class Framework extends BaseApp {
             this.elapsedTime += delta * 1000 * this.playbackSpeed;
 
             //DEBUG
-            //console.log("Elapsed = ", this.elapsedTime);
+            console.log("Elapsed = ", this.elapsedTime);
 
             if(this.playbackSpeed > 0) {
                 while(this.elapsedTime > this.simTimes[this.currentIndex+1]) {
@@ -287,6 +291,13 @@ class Framework extends BaseApp {
        this.trails[this.currentIndex].visible = this.showTrails;
 
         ++this.currentIndex;
+        //DEBUG
+        console.log("Current = ", this.currentIndex);
+        if(this.currentIndex === this.maxIndex) {
+            console.log("Reached the end");
+            this.currentIndex = this.maxIndex;
+            this.simRunning = false;
+        }
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
         //May need to amplify space
         //this.userObject.position.multiplyScalar(SceneConfig.PosScale);
@@ -347,6 +358,7 @@ class Framework extends BaseApp {
         }
         //Convert back to negative as rewinding
         this.playbackSpeed *= -1;
+        this.simRunning = true;
     }
 
     stepForward() {
