@@ -292,7 +292,7 @@ class Framework extends BaseApp {
 
         ++this.currentIndex;
         //DEBUG
-        console.log("Current = ", this.currentIndex);
+        //console.log("Current = ", this.currentIndex);
         if(this.currentIndex === this.maxIndex) {
             //DEBUG
             console.log("Reached the end");
@@ -314,8 +314,7 @@ class Framework extends BaseApp {
             //DEBUG
             console.log("Reached the start");
 
-            this.elapsedTime = 0;
-            this.simRunning = false;
+            this.resetPlayBack();
         }
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
         //May need to amplify space
@@ -447,6 +446,14 @@ class Framework extends BaseApp {
         for(let i=0, numTrails=this.trails.length; i<numTrails; ++i) {
             this.trails[i].visible = false;
         }
+    }
+
+    resetPlayBack() {
+        //Reached start - reset everything
+        this.elapsedTime = 0;
+        this.simRunning = false;
+        this.playbackSpeed = 1;
+        $("#playToggleImage").attr("src", "images/play-buttonWhite.png");
     }
 
     updateDistanceMetrics() {
