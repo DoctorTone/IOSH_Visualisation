@@ -340,6 +340,7 @@ class Framework extends BaseApp {
             return;
         }
         this.simRunning = !this.simRunning;
+        this.playbackSpeed = 1;
         let elem = $("#playToggleImage");
         elem.attr("src", this.simRunning ? "images/pause-buttonWhite.png" : "images/play-buttonWhite.png");
         this.setCurrentPlaybackTime(this.times[this.currentIndex]);
@@ -353,6 +354,8 @@ class Framework extends BaseApp {
         if(this.playbackSpeed > SceneConfig.MaxPlaybackSpeed) {
             this.playbackSpeed = 1;
         }
+        this.simRunning = true;
+        $("#playToggleImage").attr("src", "images/pause-buttonWhite.png");
     }
 
     rewind() {
@@ -366,6 +369,7 @@ class Framework extends BaseApp {
         //Convert back to negative as rewinding
         this.playbackSpeed *= -1;
         this.simRunning = true;
+        $("#playToggleImage").attr("src", "images/pause-buttonWhite.png");
     }
 
     stepForward() {
