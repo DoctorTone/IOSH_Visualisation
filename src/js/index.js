@@ -28,6 +28,7 @@ class Framework extends BaseApp {
         this.dataLoader = new TextLoader();
         this.dataLoaded = false;
         this.startIndex = this.endIndex = 0;
+        this.trails = [];
     }
 
     setContainer(container) {
@@ -98,6 +99,8 @@ class Framework extends BaseApp {
             this.root.add(object);
         });
         */
+        //DEBUG
+        console.log("Trails create = ", this.trails);
     }
 
     generateData() {
@@ -164,6 +167,12 @@ class Framework extends BaseApp {
         //console.log("simTimes = ", simTimes);
 
         //Create trail for each position
+        //Delete trails if they already exist
+        this.trails.length = 0;
+
+        //DEBUG
+        console.log("Trails = ", this.trails);
+
         let trailRep, trails = [];
         for(let i=0; i<numTimes; ++i) {
             trailRep = this.trailObject.clone();
@@ -172,7 +181,7 @@ class Framework extends BaseApp {
             trailRep.position.copy(positions[i]);
             //trailRep.position.multiplyScalar(SceneConfig.PosScale);
             trailRep.position.z *= -1;
-            trails.push(trailRep);
+            this.trails.push(trailRep);
         }
 
         this.userObject.position.copy(positions[0]);
@@ -183,7 +192,7 @@ class Framework extends BaseApp {
         this.simTimes = simTimes;
         this.times = times;
         this.simPositions = positions;
-        this.trails = trails;
+        //this.trails = trails;
     }
 
     setUserDate(filename) {
@@ -448,10 +457,15 @@ class Framework extends BaseApp {
         this.playbackSpeed = 1;
         this.currentIndex = 0;
         this.elapsedTime = 0;
-        this.userObject.position.copy(this.simPositions[this.currentIndex]);
-        this.userObject.position.z *= -1;
+        if(this.simPositions) {
+            this.userObject.position.copy(this.simPositions[this.currentIndex]);
+            this.userObject.position.z *= -1;
+        }
+
         $("#playToggleImage").attr("src", "images/play-buttonWhite.png");
-        this.setCurrentPlaybackTime(this.times[this.currentIndex]);
+        if(this.times) {
+            this.setCurrentPlaybackTime(this.times[this.currentIndex]);
+        }
         //Hide trails
         for(let i=0, numTrails=this.trails.length; i<numTrails; ++i) {
             this.trails[i].visible = false;
@@ -508,6 +522,7 @@ class Framework extends BaseApp {
             console.log("Data loaded");
             this.dataLoaded = true;
             this.userData = data;
+            this.reset();
             this.generateData();
         });
     }
