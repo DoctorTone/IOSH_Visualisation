@@ -82,7 +82,7 @@ class Framework extends BaseApp {
 
         matLoader.load("../models/floor.mtl", (materials) => {
             materials.preload();
-            objLoader.setMaterials(materials);
+            //objLoader.setMaterials(materials);
             objLoader.load("../models/floor.obj", (object) => {
                 //object.scale.set(SceneConfig.UserScale, SceneConfig.UserScale, SceneConfig.UserScale);
                 object.rotation.y = Math.PI;
