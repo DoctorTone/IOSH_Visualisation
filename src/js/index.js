@@ -387,6 +387,12 @@ class Framework extends BaseApp {
     }
 
     fastForward() {
+        //Ensure data loaded
+        if(!this.dataLoaded) {
+            alert("No data loaded!");
+            return;
+        }
+
         if(this.playbackSpeed < 0) {
             this.playbackSpeed = 1;
         }
@@ -399,6 +405,12 @@ class Framework extends BaseApp {
     }
 
     rewind() {
+        //Ensure data loaded
+        if(!this.dataLoaded) {
+            alert("No data loaded!");
+            return;
+        }
+
         if(this.playbackSpeed < 0) {
             this.playbackSpeed *= -1;
         }
@@ -413,6 +425,11 @@ class Framework extends BaseApp {
     }
 
     stepForward() {
+        if(!this.dataLoaded) {
+            console.log("No data loaded");
+            return;
+        }
+
         //Only step forward if paused
         if(this.simRunning) {
             console.log("Cannot step forward whilst playing");

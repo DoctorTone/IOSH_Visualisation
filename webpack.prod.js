@@ -11,20 +11,18 @@ let cleanOptions = {
 };
 
 module.exports = {
+    mode: "production",
     entry: "./src/js/index.js",
     plugins: [
         new CleanWebpackPlugin(["dist"]),
         new HtmlWebpackPlugin({
-            title: "Visualisation Framework",
+            title: "IOSH Visualisation",
             template: "./IOSHVis.html",
-            hash: true,
-            filename: "./IOSHVis.html"
+            hash: true
         }),
         new CopyWebpackPlugin([
-            {
-                from: "./src/textures",
-                to: "./textures"
-            }
+            { from: "./src/images", to: "./images" },
+            { from: "./src/models", to: "./models" }
         ]),
         new UglifyJSPlugin({
             sourceMap: true
@@ -58,7 +56,7 @@ module.exports = {
         ]
     },
     output: {
-        filename: "bundle.js",
+        filename: "js/bundle.js",
         path: path.resolve(__dirname, "dist")
     }
 };
