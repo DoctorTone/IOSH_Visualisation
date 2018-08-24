@@ -35,6 +35,15 @@ body {
     left: 1%;
     top: 1%;
 }
+#controlPanel {
+    width: 20%;
+    top: 1%;
+    right: 1%;
+    color: white;
+}
+#controlPanel img {
+    width: 100%;
+}
 #playerControls {
     width: 20%;
     top: 1%;
@@ -55,19 +64,9 @@ body {
 #distanceControls img {
     width: 100%;
 }
-#distanceMetrics {
-    top: 14%;
-    right: 13.5%;
-    color: white;
-}
 .row > [class^="col-"] {
     padding-right: 2px;
     padding-left: 2px;
-}
-#trails {
-    top: 22.5%;
-    right: 15%;
-    color: white;
 }
 #fileSelector {
     left: 2%;

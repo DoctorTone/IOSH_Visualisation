@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no">
     <title>IOSH Visualisation</title>
 </head>
 <body>
@@ -15,7 +16,7 @@
             <h3>End Time: <span id="endTime">-:-:-</span></h3>
             <h3>Current Time: <span id="currentTime">-:-:-:-</span></h3>
         </div>
-        <div id="playerControls" class="infoPanel">
+        <div id="controlPanel" class="infoPanel">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md">
@@ -38,14 +39,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="trails" class="infoPanel form-check">
-            <input class="form-check-input" type="checkbox" value="" id="checkTrail" checked>
-            <label class="form-check-label" for="checkTrail">
-                Show Trail
-            </label>
-        </div>
-        <div id="distanceControls" class="infoPanel text-center">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md">
@@ -59,15 +52,23 @@
                     </div>
                 </div>
             </div>
+            <div id="distanceMetrics">
+                <p>
+                    Distance :<span id="distance"> 00.00</span>
+                </p>
+                <p>
+                    Speed :<span id="speed"> 00.00</span>
+                </p>
+            </div>
+            <div id="trails" class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="checkTrail" checked>
+                <label class="form-check-label" for="checkTrail">
+                    Show Trail
+                </label>
+            </div>
         </div>
-        <div id="distanceMetrics" class="infoPanel">
-            <p>
-                Distance :<span id="distance"> 00.00</span>
-            </p>
-            <p>
-                Speed :<span id="speed"> 00.00</span>
-            </p>
-        </div>
+
+
         <div id="fileSelector" class="infoPanel">
             <button id="loadFile" class="btn btn-primary btn-file">Load Data</button>
             <input id="loadFileType" type="file" class="d-none">
