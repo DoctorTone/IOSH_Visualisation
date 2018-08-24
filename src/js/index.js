@@ -648,35 +648,35 @@ $(document).ready( () => {
     let zoomIn = $('#zoomIn');
     let zoomOut = $('#zoomOut');
 
-    camRight.on("mousedown", function() {
+    camRight.on("mousedown", () => {
         app.rotateCamera(true, SceneConfig.RIGHT);
     });
 
-    camRight.on("mouseup", function() {
+    camRight.on("mouseup", () => {
         app.rotateCamera(false);
     });
 
-    camRight.on("touchstart", function() {
+    camRight.on("touchstart", () => {
         app.rotateCamera(true, SceneConfig.RIGHT);
     });
 
-    camRight.on("touchend", function() {
+    camRight.on("touchend", () => {
         app.rotateCamera(false);
     });
 
-    camLeft.on("mousedown", function() {
+    camLeft.on("mousedown", () => {
         app.rotateCamera(true, SceneConfig.LEFT);
     });
 
-    camLeft.on("mouseup", function() {
+    camLeft.on("mouseup", () => {
         app.rotateCamera(false);
     });
 
-    camLeft.on("touchstart", function() {
+    camLeft.on("touchstart", () => {
         app.rotateCamera(true, SceneConfig.LEFT);
     });
 
-    camLeft.on("touchend", function() {
+    camLeft.on("touchend", () => {
         app.rotateCamera(false);
     });
 
