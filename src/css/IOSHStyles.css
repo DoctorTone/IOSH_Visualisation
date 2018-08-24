@@ -13,6 +13,9 @@ body {
     top: 1%;
     left: 0%;
 }
+.title h1 {
+    font-size: 1.75rem;
+}
 .infoPanel {
     position: absolute;
 }
@@ -32,12 +35,16 @@ body {
     color: white;
 }
 #timePanel {
+    width: 30%;
     left: 1%;
-    top: 1%;
+    top: 5%;
+}
+#timePanel h3 {
+    font-size: 1.25rem;
 }
 #controlPanel {
-    width: 20%;
-    top: 1%;
+    width: 50%;
+    top: 6.5%;
     right: 1%;
     color: white;
 }
@@ -73,7 +80,7 @@ body {
     bottom: 5%;
 }
 #camControls {
-    width: 7.5%;
+    width: 15%;
     bottom: 10%;
     right: 2%;
 }
