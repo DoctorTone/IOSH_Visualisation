@@ -29,6 +29,9 @@ class Framework extends BaseApp {
         this.dataLoaded = false;
         this.startIndex = this.endIndex = 0;
         this.trails = [];
+        this.times = [];
+        this.simTimes = [];
+        this.simPositions = [];
     }
 
     setContainer(container) {
@@ -99,8 +102,6 @@ class Framework extends BaseApp {
             this.root.add(object);
         });
         */
-        //DEBUG
-        console.log("Trails create = ", this.trails);
     }
 
     generateData() {
@@ -117,28 +118,29 @@ class Framework extends BaseApp {
 
         //Get time and position
         let recordData;
-        let times = [], positions = [];
+        this.times.length = 0;
+        this.simPositions.length = 0;
         for(let i=1; i<numRecords; ++i) {
             recordData = records[i].split(" ");
             if(recordData.length !== 4) {
                 console.log("Invalid record number", i);
                 continue;
             }
-            times.push(recordData[0]);
-            positions.push(new THREE.Vector3(parseFloat(recordData[1]), parseFloat(recordData[2]), parseFloat(recordData[3])));
+            this.times.push(recordData[0]);
+            this.simPositions.push(new THREE.Vector3(parseFloat(recordData[1]), parseFloat(recordData[2]), parseFloat(recordData[3])));
         }
 
         //DEBUG
         //console.log("Times = ", times);
 
-        let numTimes = times.length;
+        let numTimes = this.times.length;
         this.maxIndex = numTimes - 1;
         //DEBUG
-        console.log("Max index = ", this.maxIndex);
+        //console.log("Max index = ", this.maxIndex);
 
-        this.setStartTime(times[0]);
-        this.setEndTime(times[numTimes-1]);
-        this.setCurrentPlaybackTime(times[0]);
+        this.setStartTime(this.times[0]);
+        this.setEndTime(this.times[numTimes-1]);
+        this.setCurrentPlaybackTime(this.times[0]);
 
         //Get relative times
         let currentDate = new Date();
@@ -148,7 +150,7 @@ class Framework extends BaseApp {
         let millisecondTimes = [];
         let timeParts;
         for(let i=0; i<numTimes; ++i) {
-            timeParts = times[i].split(":");
+            timeParts = this.times[i].split(":");
             currentDate.setHours(parseFloat(timeParts[0]));
             currentDate.setMinutes(parseFloat(timeParts[1]));
             currentDate.setSeconds(parseFloat(timeParts[2]));
@@ -158,9 +160,9 @@ class Framework extends BaseApp {
 
         //Get all times relative to zero
         let timeOffset = millisecondTimes[0];
-        let simTimes = [];
+        this.simTimes.length = 0;
         for(let i=0; i<numTimes; ++i) {
-            simTimes.push(millisecondTimes[i] - timeOffset);
+            this.simTimes.push(millisecondTimes[i] - timeOffset);
         }
 
         //DEBUG
@@ -171,27 +173,27 @@ class Framework extends BaseApp {
         this.trails.length = 0;
 
         //DEBUG
-        console.log("Trails = ", this.trails);
+        //console.log("Trails = ", this.trails);
 
-        let trailRep, trails = [];
+        let trailRep;
         for(let i=0; i<numTimes; ++i) {
             trailRep = this.trailObject.clone();
             trailRep.visible = false;
             this.root.add(trailRep);
-            trailRep.position.copy(positions[i]);
+            trailRep.position.copy(this.simPositions[i]);
             //trailRep.position.multiplyScalar(SceneConfig.PosScale);
             trailRep.position.z *= -1;
             this.trails.push(trailRep);
         }
 
-        this.userObject.position.copy(positions[0]);
+        this.userObject.position.copy(this.simPositions[0]);
         //May need to amplify space
         //this.userObject.position.multiplyScalar(SceneConfig.PosScale);
         this.userObject.position.z *= -1;
         //this.userObject.position.y += SceneConfig.UserHeight/2;
-        this.simTimes = simTimes;
-        this.times = times;
-        this.simPositions = positions;
+        //this.simTimes = simTimes;
+        //this.times = times;
+        //this.simPositions = positions;
         //this.trails = trails;
     }
 
@@ -268,6 +270,7 @@ class Framework extends BaseApp {
         let groundMat = new THREE.MeshLambertMaterial({color: 0xcdcdcd});
         let ground = new THREE.Mesh(groundGeom, groundMat);
         ground.name = "Ground";
+        ground.position.y = SceneConfig.GroundOffset;
         ground.rotation.x = -Math.PI / 2;
         this.root.add(ground);
     }
@@ -337,8 +340,6 @@ class Framework extends BaseApp {
             return;
         }
         this.userObject.position.copy(this.simPositions[this.currentIndex]);
-        //DEBUG
-        this.userObject.position.z *= 10;
         this.elapsedTime = 0;
     }
 
@@ -421,7 +422,7 @@ class Framework extends BaseApp {
         this.pointerStart.position.y += SceneConfig.PointerHeight;
         this.startIndex = this.currentIndex;
         //DEBUG
-        console.log("Start index = ", this.startIndex);
+        //console.log("Start index = ", this.startIndex);
         //May need to amplify space
         //this.pointerStart.position.multiplyScalar(SceneConfig.PosScale);
         this.pointerStart.position.z *= -1;
@@ -439,7 +440,7 @@ class Framework extends BaseApp {
         this.pointerEnd.position.y += SceneConfig.PointerHeight;
         this.endIndex = this.currentIndex;
         //DEBUG
-        console.log("End index = ", this.endIndex);
+        //console.log("End index = ", this.endIndex);
         //May need to amplify space
         //this.pointerEnd.position.multiplyScalar(SceneConfig.PosScale);
         this.pointerEnd.position.z *= -1;
@@ -457,13 +458,13 @@ class Framework extends BaseApp {
         this.playbackSpeed = 1;
         this.currentIndex = 0;
         this.elapsedTime = 0;
-        if(this.simPositions) {
+        if(this.simPositions.length) {
             this.userObject.position.copy(this.simPositions[this.currentIndex]);
             this.userObject.position.z *= -1;
         }
 
         $("#playToggleImage").attr("src", "images/play-buttonWhite.png");
-        if(this.times) {
+        if(this.times.length) {
             this.setCurrentPlaybackTime(this.times[this.currentIndex]);
         }
         //Hide trails
@@ -485,8 +486,8 @@ class Framework extends BaseApp {
     updateDistanceMetrics() {
         let distance = 0;
         //DEBUG
-        console.log("Start time = ", this.simTimes[this.startIndex]);
-        console.log("End time = ", this.simTimes[this.endIndex]);
+        //console.log("Start time = ", this.simTimes[this.startIndex]);
+        //console.log("End time = ", this.simTimes[this.endIndex]);
         for(let i=this.startIndex; i< this.endIndex; ++i) {
             distance += this.simPositions[i].distanceTo(this.simPositions[i+1]);
         }

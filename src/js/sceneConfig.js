@@ -28,6 +28,7 @@ const SceneConfig = {
     SecondsOffset: 1532900000000,
     MaxPlaybackSpeed: 16,
     PosScale: 10,
+    GroundOffset: -4,
     FloorHeight: 3.25,
     PointerHeight: 2
 };
