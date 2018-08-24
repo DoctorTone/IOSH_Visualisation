@@ -32,6 +32,16 @@ class Framework extends BaseApp {
         this.times = [];
         this.simTimes = [];
         this.simPositions = [];
+
+        //Camera movement
+        this.cameraRotate = false;
+        this.rotSpeed = Math.PI/20;
+        this.rotDirection = 1;
+        this.zoomingIn = false;
+        this.zoomingOut = false;
+        this.zoomSpeed = SceneConfig.ZOOM_SPEED;
+        //Temp variables
+        this.tempVec = new THREE.Vector3();
     }
 
     setContainer(container) {
@@ -296,6 +306,26 @@ class Framework extends BaseApp {
             this.setCurrentPlaybackTime(this.times[this.currentIndex]);
         }
 
+        if(this.cameraRotate) {
+            this.root.rotation.y += (this.rotSpeed * this.rotDirection * delta);
+        }
+
+        if(this.zoomingIn) {
+            this.tempVec.sub(this.camera.position, this.controls.target);
+            this.tempVec.multiplyScalar(this.zoomSpeed * delta);
+            this.root.position.add(this.tempVec);
+            //DEBUG
+            //console.log("Root = ", this.root.position);
+        }
+
+        if(this.zoomingOut) {
+            this.tempVec.sub(this.camera.position, this.controls.target);
+            this.tempVec.multiplyScalar(this.zoomSpeed * delta);
+            this.root.position.sub(this.tempVec);
+            //DEBUG
+            //console.log("Root = ", this.root.position);
+        }
+
         super.update();
     }
 
@@ -527,6 +557,19 @@ class Framework extends BaseApp {
             this.generateData();
         });
     }
+
+    rotateCamera(status, direction) {
+        this.rotDirection = direction === SceneConfig.RIGHT ? 1 : -1;
+        this.cameraRotate = status;
+    }
+
+    zoomIn(zoom) {
+        this.zoomingIn = zoom;
+    }
+
+    zoomOut(zoom) {
+        this.zoomingOut = zoom;
+    }
 }
 
 $(document).ready( () => {
@@ -597,6 +640,76 @@ $(document).ready( () => {
 
     $('#clearMarks').on("click", () => {
         app.clearArrows();
+    });
+
+    //Camera movement
+    let camRight = $('#rotateRight');
+    let camLeft = $('#rotateLeft');
+    let zoomIn = $('#zoomIn');
+    let zoomOut = $('#zoomOut');
+
+    camRight.on("mousedown", function() {
+        app.rotateCamera(true, SceneConfig.RIGHT);
+    });
+
+    camRight.on("mouseup", function() {
+        app.rotateCamera(false);
+    });
+
+    camRight.on("touchstart", function() {
+        app.rotateCamera(true, SceneConfig.RIGHT);
+    });
+
+    camRight.on("touchend", function() {
+        app.rotateCamera(false);
+    });
+
+    camLeft.on("mousedown", function() {
+        app.rotateCamera(true, SceneConfig.LEFT);
+    });
+
+    camLeft.on("mouseup", function() {
+        app.rotateCamera(false);
+    });
+
+    camLeft.on("touchstart", function() {
+        app.rotateCamera(true, SceneConfig.LEFT);
+    });
+
+    camLeft.on("touchend", function() {
+        app.rotateCamera(false);
+    });
+
+    zoomIn.on("mousedown", () => {
+        app.zoomIn(true);
+    });
+
+    zoomIn.on("mouseup", () => {
+        app.zoomIn(false);
+    });
+
+    zoomIn.on("touchstart", () => {
+        app.zoomIn(true);
+    });
+
+    zoomIn.on("touchend", () => {
+        app.zoomIn(false);
+    });
+
+    zoomOut.on("mousedown", () => {
+        app.zoomOut(true);
+    });
+
+    zoomOut.on("mouseup", () => {
+        app.zoomOut(false);
+    });
+
+    zoomOut.on("touchstart", () => {
+        app.zoomOut(true);
+    });
+
+    zoomOut.on("touchend", () => {
+        app.zoomOut(false);
     });
 
     app.run();

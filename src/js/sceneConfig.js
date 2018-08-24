@@ -30,7 +30,10 @@ const SceneConfig = {
     PosScale: 10,
     GroundOffset: -4,
     FloorHeight: 3.25,
-    PointerHeight: 2
+    PointerHeight: 2,
+    RIGHT: 0,
+    LEFT: 1,
+    ZOOM_SPEED: 0.1
 };
 
 export { SceneConfig };
