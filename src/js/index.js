@@ -12,6 +12,7 @@ import { MTLLoader, OBJLoader } from "three-obj-mtl-loader";
 import { BaseApp } from "./baseApp";
 import { SceneConfig } from "./sceneConfig";
 import { TextLoader } from "./textLoader";
+import { SpriteManager } from "./spriteManager";
 //import UserData from "../data/playerLog.txt";
 let FBXLoader = require("three-fbx-loader");
 
@@ -76,8 +77,27 @@ class Framework extends BaseApp {
         let trailMesh = new THREE.Mesh(trailGeom, trailMat);
         this.trailObject = trailMesh;
 
-        //Load models
+        //Sprite manager
+        let textureLoader = new THREE.TextureLoader();
+        let fireTexture = textureLoader.load("../images/fire.png");
+        let spritePosition = new THREE.Vector3(SceneConfig.fireStart.x, SceneConfig.fireStart.y, SceneConfig.fireStart.z);
+        let spriteManager = new SpriteManager();
+        let spriteAttributes = {
+            map: fireTexture,
+            repeatX: 1,
+            repeatY: 1,
+            offsetX: 0,
+            offsetY: 0,
+            name: "Fire",
+            spritePosition: spritePosition,
+            spriteScale: new THREE.Vector3(5, 5, 1),
+            visibility: true
+        };
 
+        let fireSprite = spriteManager.create(spriteAttributes);
+        this.root.add(fireSprite);
+
+        //Load models
         let matLoader = new MTLLoader();
         let objLoader = new OBJLoader();
 

@@ -14,6 +14,11 @@ const SceneConfig = {
         y: -10,
         z: -15
     },
+    fireStart: {
+        x: 0,
+        y: 4,
+        z: 0
+    },
     NEAR_PLANE: 0.1,
     FAR_PLANE: 10000,
     FOV: 45,
