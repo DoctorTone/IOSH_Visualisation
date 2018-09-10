@@ -140,6 +140,14 @@ class Framework extends BaseApp {
                 object.rotation.y = Math.PI;
                 object.position.y = SceneConfig.FloorHeight;
                 this.root.add(object);
+            },
+            xhr => {
+                let progress = xhr.loaded / xhr.total * 100;
+                console.log(progress + "% loaded");
+                $("#modelProgress").width(progress + "%");
+                if(progress >= 100) {
+                    $("#startScreen").hide();
+                }
             });
         });
 
