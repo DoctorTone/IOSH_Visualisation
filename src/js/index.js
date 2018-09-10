@@ -107,6 +107,14 @@ class Framework extends BaseApp {
         fireSprite = spriteManager.create(spriteAttributes);
         this.root.add(fireSprite);
 
+        //Whiteboard
+        let boardGeom = new THREE.BoxBufferGeometry(SceneConfig.WHITEBOARD_WIDTH, SceneConfig.WHITEBOARD_HEIGHT, SceneConfig.WHITEBOARD_DEPTH);
+        let boardMat = new THREE.MeshLambertMaterial( {color: 0xffffff} );
+        let boardMesh = new THREE.Mesh(boardGeom, boardMat);
+        boardMesh.position.set(SceneConfig.WhiteBoardPos.x, SceneConfig.WhiteBoardPos.y, SceneConfig.WhiteBoardPos.z);
+        boardMesh.rotation.y = SceneConfig.WHITEBOARD_ROT_Y;
+        this.root.add(boardMesh);
+
         //Load models
         let matLoader = new MTLLoader();
         let objLoader = new OBJLoader();

@@ -34,6 +34,15 @@ const SceneConfig = {
         y: 1.5,
         z: 1
     },
+    WHITEBOARD_WIDTH: 4.5,
+    WHITEBOARD_HEIGHT: 2,
+    WHITEBOARD_DEPTH: 0.25,
+    WHITEBOARD_ROT_Y: Math.PI/2,
+    WhiteBoardPos: {
+        x: 0.15,
+        y: 4.5,
+        z: 30.94
+    },
     NEAR_PLANE: 0.1,
     FAR_PLANE: 10000,
     FOV: 45,
