@@ -14,10 +14,25 @@ const SceneConfig = {
         y: -10,
         z: -15
     },
-    fireStart: {
-        x: 0,
+    fireLargePos: {
+        x: 19.5,
         y: 4,
-        z: 0
+        z: 13
+    },
+    fireLargeScale: {
+        x: 3,
+        y: 3,
+        z: 1
+    },
+    fireSmallPos: {
+        x: 3,
+        y: 4,
+        z: 35.5
+    },
+    fireSmallScale: {
+        x: 1.5,
+        y: 1.5,
+        z: 1
     },
     NEAR_PLANE: 0.1,
     FAR_PLANE: 10000,

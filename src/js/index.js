@@ -80,7 +80,7 @@ class Framework extends BaseApp {
         //Sprite manager
         let textureLoader = new THREE.TextureLoader();
         let fireTexture = textureLoader.load("../images/fire.png");
-        let spritePosition = new THREE.Vector3(SceneConfig.fireStart.x, SceneConfig.fireStart.y, SceneConfig.fireStart.z);
+        let spritePosition = new THREE.Vector3(SceneConfig.fireLargePos.x, SceneConfig.fireLargePos.y, SceneConfig.fireLargePos.z);
         let spriteManager = new SpriteManager();
         let spriteAttributes = {
             map: fireTexture,
@@ -88,13 +88,23 @@ class Framework extends BaseApp {
             repeatY: 1,
             offsetX: 0,
             offsetY: 0,
-            name: "Fire",
+            name: "LargeFire",
             spritePosition: spritePosition,
-            spriteScale: new THREE.Vector3(5, 5, 1),
+            spriteScale: new THREE.Vector3(SceneConfig.fireLargeScale.x, SceneConfig.fireLargeScale.y, SceneConfig.fireLargeScale.z),
             visibility: true
         };
 
+        //Large fire
         let fireSprite = spriteManager.create(spriteAttributes);
+        this.root.add(fireSprite);
+
+        //Small fire
+        spriteAttributes.name = "SmallFire";
+        spritePosition.x = SceneConfig.fireSmallPos.x;
+        spritePosition.z = SceneConfig.fireSmallPos.z;
+        spriteAttributes.spriteScale.x = SceneConfig.fireSmallScale.x;
+        spriteAttributes.spriteScale.y = SceneConfig.fireSmallScale.y;
+        fireSprite = spriteManager.create(spriteAttributes);
         this.root.add(fireSprite);
 
         //Load models
