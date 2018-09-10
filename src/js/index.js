@@ -109,7 +109,7 @@ class Framework extends BaseApp {
 
         //Whiteboard
         let boardGeom = new THREE.BoxBufferGeometry(SceneConfig.WHITEBOARD_WIDTH, SceneConfig.WHITEBOARD_HEIGHT, SceneConfig.WHITEBOARD_DEPTH);
-        let boardMat = new THREE.MeshLambertMaterial( {color: 0xffffff} );
+        let boardMat = new THREE.MeshLambertMaterial( {color: 0xffa500} );
         let boardMesh = new THREE.Mesh(boardGeom, boardMat);
         boardMesh.position.set(SceneConfig.WhiteBoardPos.x, SceneConfig.WhiteBoardPos.y, SceneConfig.WhiteBoardPos.z);
         boardMesh.rotation.y = SceneConfig.WHITEBOARD_ROT_Y;
