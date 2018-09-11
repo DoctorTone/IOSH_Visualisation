@@ -157,10 +157,11 @@ class Framework extends BaseApp {
             materials.preload();
             objLoader.load("../models/chair.obj", (object) => {
                 object.scale.set(4, 4, 4);
-                for(let i=0; i<4; ++i) {
+                for(let i=0; i<7; ++i) {
                     chairs.push(object.clone());
                     this.root.add(chairs[i]);
                 }
+                //Chairs in breakout room 1
                 chairs[0].position.set(20.25, 2, 8);
                 chairs[0].rotation.y = Math.PI/2;
                 chairs[1].position.set(21.5, 2, 6.75);
@@ -168,6 +169,11 @@ class Framework extends BaseApp {
                 chairs[2].rotation.y = -Math.PI/2;
                 chairs[3].position.set(21.5, 2, 9.25);
                 chairs[3].rotation.y = Math.PI;
+
+                //Chairs in conference room
+                chairs[4].position.set(7.85, 2, 30.5);
+                chairs[5].position.set(6.85, 2, 30.5);
+                chairs[6].position.set(5.85, 2, 30.5);
             });
         });
         
@@ -190,7 +196,7 @@ class Framework extends BaseApp {
         let tableGeom = new THREE.BoxBufferGeometry(7.5, 0.25, 3.25);
         let tableMat = new THREE.MeshLambertMaterial( {color: 0x0000ff} );
         let table = new THREE.Mesh(tableGeom, tableMat);
-        table.position.set(7.25, 4, 32.5);
+        table.position.set(7.25, 3, 32.5);
         this.root.add(table);
     }
 
