@@ -159,7 +159,7 @@ class Framework extends BaseApp {
             materials.preload();
             objLoader.load("../models/chair.obj", (object) => {
                 object.scale.set(4, 4, 4);
-                for(let i=0; i<14; ++i) {
+                for(let i=0; i<18; ++i) {
                     chairs.push(object.clone());
                     this.root.add(chairs[i]);
                 }
@@ -193,6 +193,16 @@ class Framework extends BaseApp {
                 chairs[12].rotation.y = -Math.PI/2;
                 chairs[13].position.set(-18, 2, 9);
                 chairs[13].rotation.y = Math.PI;
+
+                //Chairs on fire exit table
+                chairs[14].position.set(-24.75, 2, 12.75);
+                chairs[14].rotation.y = Math.PI/2;
+                chairs[15].position.set(-22.5, 2, 11);
+                chairs[15].rotation.y = -Math.PI/4;
+                chairs[16].position.set(-21.25, 2, 12.75);
+                chairs[16].rotation.y = -Math.PI/2;
+                chairs[17].position.set(-22.5, 2, 14);
+                chairs[17].rotation.y = Math.PI;
             });
         });
         
