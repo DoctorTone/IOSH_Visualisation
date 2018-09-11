@@ -1,0 +1,15 @@
+# Blender MTL File: 'table.blend'
+# Material Count: 1
+
+newmtl uvg_07
+Ns 60.784314
+Ka 0.500000 0.500000 0.500000
+Kd 0.800000 0.800000 0.800000
+Ks 0.250000 0.250000 0.250000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd C:\textures\grp7_DIFF.png
+map_Bump C:\\textures\\grp7_NORMALS.png
+map_Ks C:\\textures\\grp7_SPEC.png

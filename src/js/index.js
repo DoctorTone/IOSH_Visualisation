@@ -151,6 +151,23 @@ class Framework extends BaseApp {
             });
         });
 
+        //Load table and chairs and then clone them accordingly
+        matLoader.load("../models/chair.mtl", (materials) => {
+            materials.preload();
+            objLoader.load("../models/chair.obj", (object) => {
+                object.scale.set(10, 10, 10);
+                this.root.add(object);
+            });
+        });
+        
+        matLoader.load("../models/table.mtl", (materials) => {
+            materials.preload();
+            objLoader.load("../models/table.obj", (object) => {
+                object.scale.set(10, 10, 10);
+                this.root.add(object);
+            });
+        });
+
         /*
         let fbxLoader = new FBXLoader();
 
