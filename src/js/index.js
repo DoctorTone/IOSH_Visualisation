@@ -159,7 +159,7 @@ class Framework extends BaseApp {
             materials.preload();
             objLoader.load("../models/chair.obj", (object) => {
                 object.scale.set(4, 4, 4);
-                for(let i=0; i<10; ++i) {
+                for(let i=0; i<14; ++i) {
                     chairs.push(object.clone());
                     this.root.add(chairs[i]);
                 }
@@ -184,6 +184,15 @@ class Framework extends BaseApp {
                 chairs[8].rotation.y = (2*Math.PI)/3;
                 chairs[9].position.set(-5.1, 2, 14);
                 chairs[9].rotation.y = -(2*Math.PI)/3;
+
+                //Chairs in other breakout room
+                chairs[10].position.set(-19.15, 2, 7.75);
+                chairs[10].rotation.y = Math.PI/2;
+                chairs[11].position.set(-18, 2, 6.5);
+                chairs[12].position.set(-16.85, 2, 7.75);
+                chairs[12].rotation.y = -Math.PI/2;
+                chairs[13].position.set(-18, 2, 9);
+                chairs[13].rotation.y = Math.PI;
             });
         });
         
