@@ -26,6 +26,7 @@ class Framework extends BaseApp {
         this.currentIndex = 0;
         this.playbackSpeed = 1;
         this.showTrails = true;
+        this.showFires = false;
         this.dataLoader = new TextLoader();
         this.dataLoaded = false;
         this.startIndex = this.endIndex = 0;
@@ -91,8 +92,9 @@ class Framework extends BaseApp {
             name: "LargeFire",
             spritePosition: spritePosition,
             spriteScale: new THREE.Vector3(SceneConfig.fireLargeScale.x, SceneConfig.fireLargeScale.y, SceneConfig.fireLargeScale.z),
-            visibility: true
+            visibility: false
         };
+        this.spriteManager = spriteManager;
 
         //Large fire
         let fireSprite = spriteManager.create(spriteAttributes);
@@ -547,6 +549,19 @@ class Framework extends BaseApp {
         this.showTrails = !this.showTrails;
     }
 
+    toggleFires() {
+        this.showFires = !this.showFires;
+        let fire = this.spriteManager.getSpriteByName("LargeFire");
+        if(fire) {
+            fire.visible = this.showFires;
+        }
+
+        fire = this.spriteManager.getSpriteByName("SmallFire");
+        if(fire) {
+            fire.visible = this.showFires;
+        }
+    }
+
     setStartArrow() {
         if(!this.dataLoaded) return;
 
@@ -731,6 +746,10 @@ $(document).ready( () => {
 
     $('#checkTrail').on("change", () => {
         app.toggleTrails();
+    });
+
+    $("#checkFires").on("change", () => {
+        app.toggleFires();
     });
 
     $('#markStart').on("click", () => {
