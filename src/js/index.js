@@ -159,7 +159,7 @@ class Framework extends BaseApp {
             materials.preload();
             objLoader.load("../models/chair.obj", (object) => {
                 object.scale.set(4, 4, 4);
-                for(let i=0; i<7; ++i) {
+                for(let i=0; i<10; ++i) {
                     chairs.push(object.clone());
                     this.root.add(chairs[i]);
                 }
@@ -176,6 +176,14 @@ class Framework extends BaseApp {
                 chairs[4].position.set(7.85, 2, 30.5);
                 chairs[5].position.set(6.85, 2, 30.5);
                 chairs[6].position.set(5.85, 2, 30.5);
+
+                //Chairs in corridoor
+                chairs[7].position.set(6.4, 2, 13);
+                chairs[7].rotation.y = -(2 * Math.PI)/3;
+                chairs[8].position.set(-3.25, 2, 19.25);
+                chairs[8].rotation.y = (2*Math.PI)/3;
+                chairs[9].position.set(-5.1, 2, 14);
+                chairs[9].rotation.y = -(2*Math.PI)/3;
             });
         });
         
@@ -184,13 +192,17 @@ class Framework extends BaseApp {
             materials.preload();
             objLoader.load("../models/table.obj", (object) => {
                 object.scale.set(4, 4, 4);
-                for(let i=0; i<3; ++i) {
+                for(let i=0; i<5; ++i) {
                     tables.push(object.clone());
                     this.root.add(tables[i]);
                 }
                 tables[0].position.set(21.5, 2, 8);
                 tables[1].position.set(19, 2, 14);
                 tables[2].position.set(7.84, 2, 24.82);
+
+                //Near opposite fire exit
+                tables[3].position.set(-18, 2, 7.75);
+                tables[4].position.set(-22.5, 2, 12.75);
             });
         });
 
