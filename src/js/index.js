@@ -152,19 +152,37 @@ class Framework extends BaseApp {
         });
 
         //Load table and chairs and then clone them accordingly
+        let chairs = [];
         matLoader.load("../models/chair.mtl", (materials) => {
             materials.preload();
             objLoader.load("../models/chair.obj", (object) => {
-                object.scale.set(10, 10, 10);
-                this.root.add(object);
+                object.scale.set(4, 4, 4);
+                for(let i=0; i<4; ++i) {
+                    chairs.push(object.clone());
+                    this.root.add(chairs[i]);
+                }
+                chairs[0].position.set(20.25, 2, 8);
+                chairs[0].rotation.y = Math.PI/2;
+                chairs[1].position.set(21.5, 2, 6.75);
+                chairs[2].position.set(22.75, 2, 8);
+                chairs[2].rotation.y = -Math.PI/2;
+                chairs[3].position.set(21.5, 2, 9.25);
+                chairs[3].rotation.y = Math.PI;
             });
         });
         
+        let tables = [];
         matLoader.load("../models/table.mtl", (materials) => {
             materials.preload();
             objLoader.load("../models/table.obj", (object) => {
-                object.scale.set(10, 10, 10);
-                this.root.add(object);
+                object.scale.set(4, 4, 4);
+                for(let i=0; i<3; ++i) {
+                    tables.push(object.clone());
+                    this.root.add(tables[i]);
+                }
+                tables[0].position.set(21.5, 2, 8);
+                tables[1].position.set(19, 2, 14);
+                tables[2].position.set(7.84, 2, 24.82);
             });
         });
 
