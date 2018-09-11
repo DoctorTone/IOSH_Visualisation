@@ -186,13 +186,12 @@ class Framework extends BaseApp {
             });
         });
 
-        /*
-        let fbxLoader = new FBXLoader();
-
-        fbxLoader.load("../models/floor_plan_3.fbx", (object) => {
-            this.root.add(object);
-        });
-        */
+        //Large conference table - just cube for now
+        let tableGeom = new THREE.BoxBufferGeometry(7.5, 0.25, 3.25);
+        let tableMat = new THREE.MeshLambertMaterial( {color: 0x0000ff} );
+        let table = new THREE.Mesh(tableGeom, tableMat);
+        table.position.set(7.25, 4, 32.5);
+        this.root.add(table);
     }
 
     generateData() {
